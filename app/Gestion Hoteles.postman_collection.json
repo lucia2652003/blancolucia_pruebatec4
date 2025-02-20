@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "99d16f5c-904b-4194-83f9-f8f536fa3c71",
+		"name": "Gestion Hoteles",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "41654976"
+	},
+	"item": [
+		{
+			"name": "Mostrar Hoteles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/agency/hotels"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Hotel",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"hotelCode\":  \"AR-0002\",\r\n  \"name\": \"Atlantis Resort\",\r\n  \"place\": \"Miami\",\r\n  \"roomType\": \"DOBLE\",\r\n  \"roomPrice\": 630,\r\n  \"disponibilityDateFrom\": \"10/02/2024\",\r\n  \"disponibilityDateTo\": \"02/03/2024\",\r\n  \"isBooked\": \"NO\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/agency/hotels/new"
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Hotel",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/agency/hotels/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar Hotel",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"hotelCode\": \"AR-0002\",\r\n        \"name\": \"Atlantis Resort\",\r\n        \"place\": \"Miami\",\r\n        \"roomType\": \"DOBLE\",\r\n        \"roomPrice\": 630.0,\r\n        \"disponibilityDateFrom\": \"10/02/2024\",\r\n        \"disponibilityDateTo\": \"02/03/2024\",\r\n        \"isBooked\": \"SI\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/agency/hotels/edit/2"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminacion Hotel",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "localhost:8080/agency/hotels/delete/1"
+			},
+			"response": []
+		}
+	]
+}
