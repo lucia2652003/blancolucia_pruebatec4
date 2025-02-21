@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -50,4 +51,7 @@ public class Hotel {
     @Column(nullable = false)
     private Boolean reservado;
 
+    //Un hotel puede tener varios empleados
+    @ManyToMany(mappedBy = "reservasHotel", fetch = FetchType.EAGER)
+    private List<Empleado> empleados;
 }

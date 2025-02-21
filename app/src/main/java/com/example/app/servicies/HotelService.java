@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +21,7 @@ public class HotelService implements IHotelService{
     public ResponseEntity mostrarHoteles() {
         List<Hotel> todosHoteles = repository.findAll();
 
-        if(todosHoteles.isEmpty()) return ResponseEntity.status(200).body(todosHoteles.size());
+        if(todosHoteles.isEmpty()) return ResponseEntity.status(200).body("No hay hoteles registrados: "+todosHoteles.size());
         else return ResponseEntity
                 .status(200)
                 .body(todosHoteles.stream()
@@ -113,6 +114,6 @@ public class HotelService implements IHotelService{
                 hotelDTO.getPrecioHabit(),
                 hotelDTO.getFechaInicio(),
                 hotelDTO.getFechaFin(),
-                hotelDTO.getReservado().equals("SI"));
+                hotelDTO.getReservado().equals("SI"), new ArrayList<>());
     }
 }
