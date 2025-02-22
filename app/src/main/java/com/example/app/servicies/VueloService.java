@@ -3,11 +3,11 @@ package com.example.app.servicies;
 import com.example.app.dtos.VueloDTO;
 import com.example.app.entities.Vuelo;
 import com.example.app.repositories.IVueloRepository;
-import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,14 +19,18 @@ public class VueloService implements IVueloService{
 
 
     @Override
-    public ResponseEntity mostrarVuelos() {
+    public List<VueloDTO> mostrarVuelos() {
         List<Vuelo> todosVuelos = repository.findAll();
+        return todosVuelos.stream().map(this::conversorDTO)
+                .toList();
+    }
 
-        if(todosVuelos.isEmpty()) return ResponseEntity.status(200).body("No hay vuelos disponibles: "+ todosVuelos.size());
-
-        return ResponseEntity.ok(todosVuelos.stream()
-                .map(this::conversorDTO)
-                .toList());
+    /*Para evitar que en Postman nos muestre [] le mandamos un ResponseEntity
+     tanto en mostrar como en eliminar muestra los disponibles*/
+    @Override
+    public ResponseEntity mostrarListaRE(List<VueloDTO> vuelos) {
+        if(vuelos.isEmpty()) return ResponseEntity.status(200).body("No hay vuelos disponibles: "+ vuelos.size());
+        return ResponseEntity.ok(vuelos);
     }
 
     @Override
@@ -74,9 +78,21 @@ public class VueloService implements IVueloService{
     }
 
     @Override
-    public ResponseEntity eliminarVuelo(Long id) {
+    public List<VueloDTO> eliminarVuelo(Long id) {
         repository.deleteById(id);
         return this.mostrarVuelos();
+    }
+
+    @Override
+    public List<VueloDTO> mostrarVuelosDisponibles(LocalDate fechaIda, LocalDate fechaVuelta, String origen, String destino) {
+        List<VueloDTO> vuelos = this.mostrarVuelos();
+
+        return vuelos.stream().filter(vueloDTO ->
+                        vueloDTO.getFechaIda().equals(fechaIda) ||
+                        vueloDTO.getFechaVuelta().equals(fechaVuelta) ||
+                        vueloDTO.getLugarDesde().equalsIgnoreCase(origen) ||
+                        vueloDTO.getLugarHasta().equalsIgnoreCase(destino))
+                .toList();
     }
 
     @Override
