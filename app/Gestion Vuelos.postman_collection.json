@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "b517049a-7c7c-4823-a67c-7a14609b9340",
+		"name": "Gestion Vuelos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "41654976"
+	},
+	"item": [
+		{
+			"name": "Mostrar Vuelos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/agency/flights"
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Vuelo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/agency/flights/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar Vuelo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Num_vuelo\": \"BAMI-1235\",\r\n    \"Origen\": \"Barcelona\",\r\n    \"Destino\": \"Miami\",\r\n    \"Tipo Asiento\": \"ECONOMY\",\r\n    \"Precio por persona\": 650,\r\n    \"Fecha Ida\": \"10/02/2024\",\r\n    \"Fecha Vuelta\": \"15/02/2024\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/agency/flights/new"
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar Vuelo",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Num_vuelo\": \"BAMI-1235\",\r\n    \"Origen\": \"Barcelona\",\r\n    \"Destino\": \"Miami\",\r\n    \"Tipo Asiento\": \"ECONOMY\",\r\n    \"Precio por persona\": 650,\r\n    \"Fecha Ida\": \"10/02/2025\",\r\n    \"Fecha Vuelta\": \"15/02/2025\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/agency/flights/edit/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Vuelo",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "localhost:8080/agency/flights/delete/1"
+			},
+			"response": []
+		}
+	]
+}

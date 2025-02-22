@@ -22,7 +22,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"hotelCode\":  \"AR-0002\",\r\n  \"name\": \"Atlantis Resort\",\r\n  \"place\": \"Miami\",\r\n  \"roomType\": \"DOBLE\",\r\n  \"roomPrice\": 630,\r\n  \"disponibilityDateFrom\": \"10/02/2024\",\r\n  \"disponibilityDateTo\": \"02/03/2024\",\r\n  \"isBooked\": \"NO\"\r\n}\r\n",
+					"raw": "{\r\n    \"Cod_Hotel\": \"AR-0002\",\r\n    \"Nombre\": \"Atlantis Resort\",\r\n    \"Lugar\": \"Miami\",\r\n    \"Tipo Habitacion\": \"DOBLE\",\r\n    \"Precio por persona\": 630.0,\r\n    \"Fecha_Disp_Desde\": \"10/02/2025\",\r\n    \"Fecha_Disp_Hasta\": \"02/03/2025\",\r\n    \"Reservado\": \"NO\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -49,14 +49,14 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"hotelCode\": \"AR-0002\",\r\n        \"name\": \"Atlantis Resort\",\r\n        \"place\": \"Miami\",\r\n        \"roomType\": \"DOBLE\",\r\n        \"roomPrice\": 630.0,\r\n        \"disponibilityDateFrom\": \"10/02/2024\",\r\n        \"disponibilityDateTo\": \"02/03/2024\",\r\n        \"isBooked\": \"SI\"\r\n    }",
+					"raw": "{\r\n    \"Cod_Hotel\": \"AR-0002\",\r\n    \"Nombre\": \"Atlantis Resort\",\r\n    \"Lugar\": \"Miami\",\r\n    \"Tipo Habitacion\": \"DOBLE\",\r\n    \"Precio por persona\": 1852.0,\r\n    \"Fecha_Disp_Desde\": \"10/02/2025\",\r\n    \"Fecha_Disp_Hasta\": \"02/03/2025\",\r\n    \"Reservado\": \"SI\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
 					}
 				},
-				"url": "localhost:8080/agency/hotels/edit/2"
+				"url": "localhost:8080/agency/hotels/edit/1"
 			},
 			"response": []
 		},

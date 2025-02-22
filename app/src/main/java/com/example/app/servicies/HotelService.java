@@ -88,7 +88,6 @@ public class HotelService implements IHotelService{
 
         HotelDTO nuevo = new HotelDTO();
 
-        nuevo.setIdentifiHotel(hotel.getId_hotel());
         nuevo.setCodigoHotel(hotel.getCod_hotel());
         nuevo.setNombreHotel(hotel.getNombre());
         nuevo.setLugar(hotel.getLugar());
