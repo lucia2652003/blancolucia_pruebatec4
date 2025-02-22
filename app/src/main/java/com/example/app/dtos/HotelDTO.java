@@ -20,30 +20,30 @@ public class HotelDTO {
     @JsonIgnore
     private Long identifiHotel;
 
-    @JsonProperty("hotelCode")
+    @JsonProperty("Cod_Hotel")
     private String codigoHotel;
 
-    @JsonProperty("name")
+    @JsonProperty("Nombre")
     private String nombreHotel;
 
-    @JsonProperty("place")
+    @JsonProperty("Lugar")
     private String lugar;
 
-    @JsonProperty("roomType")
+    @JsonProperty("Tipo Habitacion")
     private Hotel.TipoHabitacion habitacion;
 
-    @JsonProperty("roomPrice")
+    @JsonProperty("Precio por persona")
     private Double precioHabit;
 
-    @JsonProperty("disponibilityDateFrom")
+    @JsonProperty("Fecha_Disp_Desde")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate fechaInicio;
 
-    @JsonProperty("disponibilityDateTo")
+    @JsonProperty("Fecha_Disp_Hasta")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate fechaFin;
 
-    @JsonProperty("isBooked")
+    @JsonProperty("Reservado")
     private String reservado;
 
 }

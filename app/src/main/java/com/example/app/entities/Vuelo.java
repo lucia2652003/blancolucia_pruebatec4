@@ -39,10 +39,8 @@ public class Vuelo {
     private Double precio;
 
     @Column(nullable = false)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate fecha_ida;
 
     @Column(nullable = false)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate fecha_vuelta;
 }
