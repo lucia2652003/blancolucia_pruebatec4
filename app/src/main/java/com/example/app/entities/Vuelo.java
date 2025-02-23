@@ -1,5 +1,6 @@
 package com.example.app.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -43,4 +45,8 @@ public class Vuelo {
 
     @Column(nullable = false)
     private LocalDate fecha_vuelta;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "vuelo", fetch = FetchType.EAGER)
+    private List<Reserva> reservas;
 }

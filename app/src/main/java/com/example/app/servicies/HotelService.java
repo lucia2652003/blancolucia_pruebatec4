@@ -17,15 +17,19 @@ public class HotelService implements IHotelService{
     IHotelRepository repository;
 
     @Override
-    public ResponseEntity mostrarHoteles() {
+    public List<HotelDTO> mostrarHoteles() {
         List<Hotel> todosHoteles = repository.findAll();
+        return todosHoteles.stream()
+                .map(this::conversotDTO)
+                .toList();
+    }
 
-        if(todosHoteles.isEmpty()) return ResponseEntity.status(200).body("No hay hoteles registrados: "+todosHoteles.size());
+    @Override
+    public ResponseEntity verListadoRE(List<HotelDTO> listado) {
+        if(listado.isEmpty()) return ResponseEntity.status(200).body("No hay hoteles registrados: "+listado.size());
         else return ResponseEntity
                 .status(200)
-                .body(todosHoteles.stream()
-                        .map(this::conversotDTO)
-                        .toList());
+                .body(listado);
     }
 
     @Override
@@ -74,7 +78,7 @@ public class HotelService implements IHotelService{
     }
 
     @Override
-    public ResponseEntity eliminarHotel(Long id) {
+    public List<HotelDTO> eliminarHotel(Long id) {
         repository.deleteById(id);
         return this.mostrarHoteles();
     }

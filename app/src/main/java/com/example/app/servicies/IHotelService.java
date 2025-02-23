@@ -10,10 +10,12 @@ import java.util.List;
 public interface IHotelService {
 
     //Listar Hoteles
-    ResponseEntity mostrarHoteles();
+    List<HotelDTO> mostrarHoteles();
 
+    ResponseEntity verListadoRE(List<HotelDTO> listado);
     //Agregar un hotel
     HotelDTO agregarHotel(HotelDTO hotelDTO);
+
 
     //Buscar un hotel por ID
     HotelDTO buscarHotel(Long id);
@@ -22,7 +24,7 @@ public interface IHotelService {
     HotelDTO modificarHotel(Long id, HotelDTO entidad);
 
     //Eliminar hotel por id
-    ResponseEntity eliminarHotel(Long id);
+    List<HotelDTO> eliminarHotel(Long id);
 
     //conversores
     HotelDTO conversotDTO(Hotel hotel);

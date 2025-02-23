@@ -7,16 +7,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/agency/hotels")
+@RequestMapping("/agency")
 public class HotelController {
 
     @Autowired
     private IHotelService service;
 
     //localhost:8080/agency/hotels
-    @GetMapping("")
+    @GetMapping("/hotels")
     public ResponseEntity sacarInfoHoteles(){
-        return service.mostrarHoteles();
+        return service.verListadoRE(service.mostrarHoteles());
     }
 
     //localhost:8080/agency/hotels/new
@@ -25,21 +25,24 @@ public class HotelController {
         return ResponseEntity.status(201).body(service.agregarHotel(hotelDTO));
     }
 
+    //localhost:8080/rooms?dateFrom=dd/mm/aaaa&dateTo=dd/mm/aaaa&destination="nombre_destino"
+
+
     //localhost:8080/agency/hotels/{id}
-    @GetMapping("/{id}")
+    @GetMapping("/hotels/{id}")
     public ResponseEntity<HotelDTO> encontrarHotel(@PathVariable Long id){
         return ResponseEntity.ok(service.buscarHotel(id));
     }
 
     //localhost:8080/agency/hotels/edit/{id}
-    @PutMapping("/edit/{id}")
+    @PutMapping("/hotels/edit/{id}")
     public ResponseEntity<HotelDTO> actualizarHotel(@PathVariable Long id, @RequestBody HotelDTO hotelDTO){
         return ResponseEntity.ok(service.modificarHotel(id, hotelDTO));
     }
 
     //localhost:8080/agency/hotels/delete/{id}
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/hotels/delete/{id}")
     public ResponseEntity eliminacionHotel(@PathVariable Long id){
-        return service.eliminarHotel(id);
+        return service.verListadoRE(service.eliminarHotel(id));
     }
 }

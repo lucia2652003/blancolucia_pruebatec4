@@ -1,5 +1,6 @@
 package com.example.app.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,5 +21,9 @@ public class Empleado {
 
     @Column(nullable = false)
     private String apellido;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "empleado", fetch = FetchType.EAGER)
+    private List<Reserva> reservas;
 
 }

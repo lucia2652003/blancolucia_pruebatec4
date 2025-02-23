@@ -12,6 +12,9 @@ public interface IVueloService {
     //Sacar todos los vuelos
     List<VueloDTO> mostrarVuelos();
 
+    //Mostrar los vuelos disponibles según fecha de ida, vuelta, origen y destino
+    List<VueloDTO> mostrarVuelosDisponibles(LocalDate fechaIda, LocalDate fechaVuelta, String origen,String destino);
+
     //Validacion del listado
     ResponseEntity mostrarListaRE(List<VueloDTO> vuelos);
 
@@ -26,9 +29,6 @@ public interface IVueloService {
 
     //Eliminar vuelo
     List<VueloDTO> eliminarVuelo(Long id);
-
-    //Mostrar los vuelos disponibles según fecha de ida, vuelta, origen y destino
-    List<VueloDTO> mostrarVuelosDisponibles(LocalDate fechaIda, LocalDate fechaVuelta, String origen,String destino);
 
 
     //conversores

@@ -1,13 +1,18 @@
 package com.example.app.servicies;
 
+import com.example.app.dtos.EmpleadoDTO;
+import com.example.app.dtos.ReservaDTO;
 import com.example.app.dtos.VueloDTO;
+import com.example.app.entities.Reserva;
 import com.example.app.entities.Vuelo;
 import com.example.app.repositories.IVueloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,9 +26,24 @@ public class VueloService implements IVueloService{
     @Override
     public List<VueloDTO> mostrarVuelos() {
         List<Vuelo> todosVuelos = repository.findAll();
-        return todosVuelos.stream().map(this::conversorDTO)
+        return todosVuelos.stream()
+                .map(this::conversorDTO)
                 .toList();
     }
+
+
+    @Override
+    public List<VueloDTO> mostrarVuelosDisponibles(LocalDate fechaIda, LocalDate fechaVuelta, String origen, String destino) {
+        List<VueloDTO> vuelos = this.mostrarVuelos();
+
+        return vuelos.stream().filter(vueloDTO ->
+                        vueloDTO.getFechaIda().equals(fechaIda) ||
+                                vueloDTO.getFechaVuelta().equals(fechaVuelta) ||
+                                vueloDTO.getLugarDesde().equalsIgnoreCase(origen) ||
+                                vueloDTO.getLugarHasta().equalsIgnoreCase(destino))
+                .toList();
+    }
+
 
     /*Para evitar que en Postman nos muestre [] le mandamos un ResponseEntity
      tanto en mostrar como en eliminar muestra los disponibles*/
@@ -41,7 +61,7 @@ public class VueloService implements IVueloService{
                                .filter(vuelo -> vuelo.getCod_vuelo().equals(nuevo.getCod_vuelo()))
                                .findFirst();
 
-        if(existe.isPresent()) return new VueloDTO();
+        if(existe.isPresent()) return this.conversorDTO(new Vuelo());
         else {
             Vuelo creado = repository.save(nuevo);
             return this.conversorDTO(creado);
@@ -73,7 +93,7 @@ public class VueloService implements IVueloService{
 
             Vuelo actualizado = repository.save(encontrado);
             return this.conversorDTO(actualizado);
-        }else return new VueloDTO();
+        }else return this.conversorDTO(new Vuelo());
 
     }
 
@@ -84,24 +104,36 @@ public class VueloService implements IVueloService{
     }
 
     @Override
-    public List<VueloDTO> mostrarVuelosDisponibles(LocalDate fechaIda, LocalDate fechaVuelta, String origen, String destino) {
-        List<VueloDTO> vuelos = this.mostrarVuelos();
-
-        return vuelos.stream().filter(vueloDTO ->
-                        vueloDTO.getFechaIda().equals(fechaIda) ||
-                        vueloDTO.getFechaVuelta().equals(fechaVuelta) ||
-                        vueloDTO.getLugarDesde().equalsIgnoreCase(origen) ||
-                        vueloDTO.getLugarHasta().equalsIgnoreCase(destino))
-                .toList();
-    }
-
-    @Override
     public VueloDTO conversorDTO(Vuelo vuelo) {
-        return new VueloDTO(vuelo.getId_vuelo(), vuelo.getCod_vuelo(), vuelo.getOrigen(), vuelo.getDestino(), vuelo.getAsiento(), vuelo.getPrecio(), vuelo.getFecha_ida(), vuelo.getFecha_vuelta());
+        ReservaDTO reservaDTO = new ReservaDTO();
+        if(vuelo.getReservas() == null){
+            reservaDTO = null;
+            return null;
+        }else {
+            List<ReservaDTO> todasReservas = vuelo.getReservas().stream()
+                    .map(reserva -> new ReservaDTO(null,
+                            null,
+                            null,
+                            reserva.getVuelo().getOrigen(),
+                            reserva.getVuelo().getDestino(),
+                            reserva.getVuelo().getFecha_ida(),
+                            reserva.getVuelo().getCod_vuelo(),
+                            reserva.getVuelo().getReservas().size()))
+                    .toList();
+
+            return new VueloDTO(vuelo.getId_vuelo(), vuelo.getCod_vuelo(), vuelo.getOrigen(), vuelo.getDestino(), vuelo.getAsiento(), vuelo.getPrecio(), vuelo.getFecha_ida(), vuelo.getFecha_vuelta(), todasReservas.stream().distinct().toList());
+        }
     }
 
     @Override
     public Vuelo conversorEntidad(VueloDTO vueloDTO) {
-        return new Vuelo(vueloDTO.getIdentifiVuelo(), vueloDTO.getCodigoVuelo(), vueloDTO.getLugarDesde(), vueloDTO.getLugarHasta(), vueloDTO.getAsiento(), vueloDTO.getPrecioVuelo(), vueloDTO.getFechaIda(), vueloDTO.getFechaVuelta());
+        return new Vuelo(vueloDTO.getIdentifiVuelo(),
+                vueloDTO.getCodigoVuelo(),
+                vueloDTO.getLugarDesde(),
+                vueloDTO.getLugarHasta(),
+                vueloDTO.getAsiento(),
+                vueloDTO.getPrecioVuelo(),
+                vueloDTO.getFechaIda(),
+                vueloDTO.getFechaVuelta(), null);
     }
 }

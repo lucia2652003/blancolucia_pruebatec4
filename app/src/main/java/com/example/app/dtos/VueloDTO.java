@@ -3,17 +3,19 @@ package com.example.app.dtos;
 import com.example.app.entities.Vuelo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data @AllArgsConstructor @NoArgsConstructor
 public class VueloDTO {
 
-    @JsonIgnore
+    @JsonProperty("codVuelo")
     private Long identifiVuelo;
 
     @JsonProperty("Num_vuelo")
@@ -38,4 +40,9 @@ public class VueloDTO {
     @JsonProperty("Fecha Vuelta")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate fechaVuelta;
+
+    @JsonManagedReference("vuelo-reserva")
+    @JsonProperty("susReservas")
+    private List<ReservaDTO> reservas;
+
 }
