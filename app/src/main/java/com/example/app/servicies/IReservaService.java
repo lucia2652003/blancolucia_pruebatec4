@@ -19,10 +19,10 @@ public interface IReservaService {
     ReservaDTO agregarReserva(ReservaDTO reservaDTO);
 
     //Verificar si el empleado presenta reservas
-    EmpleadoDTO tenerReservas(Reserva reserva);
+    EmpleadoDTO existeEmpleado(Reserva reserva);
 
     //Verificar si el vuelo presenta reservas
-    VueloDTO tenerReservasVuelo(Reserva reserva);
+    VueloDTO existeVueloReservas(Reserva reserva);
 
     //conversor
     ReservaDTO conversorDTO(Reserva reserva);

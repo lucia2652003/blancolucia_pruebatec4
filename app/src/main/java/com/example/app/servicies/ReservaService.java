@@ -10,10 +10,8 @@ import com.example.app.repositories.IReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ReservaService implements IReservaService{
@@ -48,7 +46,6 @@ public class ReservaService implements IReservaService{
                 .findFirst();
 
 
-
         if(existe.isPresent()) return new ReservaDTO();
         else{
             Reserva reserva = this.conversorEntidad(reservaDTO);
@@ -59,7 +56,7 @@ public class ReservaService implements IReservaService{
     }
 
     @Override
-    public EmpleadoDTO tenerReservas(Reserva reserva) {
+    public EmpleadoDTO existeEmpleado(Reserva reserva) {
         if(reserva.getEmpleado().getReservas() == null) {
             return new EmpleadoDTO(reserva.getEmpleado().getId_empleado(), null , null, null);
         }else {
@@ -68,29 +65,25 @@ public class ReservaService implements IReservaService{
     }
 
     @Override
-    public VueloDTO tenerReservasVuelo(Reserva reserva) {
-        if(reserva.getVuelo().getReservas() == null) {
+    public VueloDTO existeVueloReservas(Reserva reserva) {
+        if(reserva.getVuelo().getReservas() == null) {//Lo crea
             return new VueloDTO(reserva.getVuelo().getId_vuelo(), null , null , null, null , null , null, null, null);
-        }else {
-            return new VueloDTO(reserva.getVuelo().getId_vuelo(), reserva.getVuelo().getCod_vuelo() , reserva.getVuelo().getOrigen(), reserva.getVuelo().getDestino(),reserva.getVuelo().getAsiento(),reserva.getVuelo().getPrecio(),reserva.getVuelo().getFecha_ida(),reserva.getVuelo().getFecha_vuelta(), null);
+        }else {//Lo encuentra
+             return new VueloDTO(reserva.getVuelo().getId_vuelo(), reserva.getVuelo().getCod_vuelo() , reserva.getVuelo().getOrigen(), reserva.getVuelo().getDestino(),reserva.getVuelo().getAsiento(),reserva.getVuelo().getPrecio(),reserva.getVuelo().getFecha_ida(),reserva.getVuelo().getFecha_vuelta(), null);
         }
     }
 
     @Override
     public ReservaDTO conversorDTO(Reserva reserva) {
-        EmpleadoDTO empleadoDTO = this.tenerReservas(reserva);
-        VueloDTO vueloDTO = this.tenerReservasVuelo(reserva);
+        //Al validar desde unos métodos podemos tener código limpio
+        EmpleadoDTO empleadoDTO = this.existeEmpleado(reserva);
+        VueloDTO vueloDTO = this.existeVueloReservas(reserva);
 
-        List<EmpleadoDTO> pasajeros = this.todasReservas().stream().map(ReservaDTO::getPasajero).toList();
+        //Si en JSON tenemos el código de vuelo le pasamos el código y si no le pasamos el identificador
+        String codVuelo = reserva.getVuelo().getCod_vuelo() == null ? vueloDTO.getIdentifiVuelo().toString() : reserva.getVuelo().getCod_vuelo();
+        String nombre = reserva.getEmpleado().getNombre() == null ? empleadoDTO.getIdentificadorEmpleado().toString() : reserva.getEmpleado().getNombre();
 
-
-        //Para mostrar los datos debemos llevar el JSON de vuelo para pasarle los datos
-        return new ReservaDTO(reserva.getId_reserva(), vueloDTO, empleadoDTO,
-                    reserva.getVuelo().getOrigen(),
-                    reserva.getVuelo().getDestino(),
-                    reserva.getVuelo().getFecha_ida(),
-                    reserva.getVuelo().getCod_vuelo(),
-                    pasajeros.size(), pasajeros);
+        return new ReservaDTO(reserva.getId_reserva(), vueloDTO, empleadoDTO, codVuelo,nombre);
     }
 
     @Override

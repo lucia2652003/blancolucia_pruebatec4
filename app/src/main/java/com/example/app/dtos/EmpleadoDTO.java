@@ -1,7 +1,5 @@
 package com.example.app.dtos;
 
-import com.example.app.entities.Reserva;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

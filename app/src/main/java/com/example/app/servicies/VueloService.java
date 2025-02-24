@@ -106,22 +106,20 @@ public class VueloService implements IVueloService{
     @Override
     public VueloDTO conversorDTO(Vuelo vuelo) {
         ReservaDTO reservaDTO = new ReservaDTO();
-        if(vuelo.getReservas() == null){
+        if(vuelo.getReservas() == null){ //No presenta reservas
             reservaDTO = null;
             return null;
         }else {
+            //Mostramos todos los pasajeros del hotel
             List<ReservaDTO> todasReservas = vuelo.getReservas().stream()
-                    .map(reserva -> new ReservaDTO(null,
+                    .map(reserva -> new ReservaDTO(reserva.getId_reserva(),
                             null,
                             null,
-                            reserva.getVuelo().getOrigen(),
-                            reserva.getVuelo().getDestino(),
-                            reserva.getVuelo().getFecha_ida(),
                             reserva.getVuelo().getCod_vuelo(),
-                            reserva.getVuelo().getReservas().size(), null))
+                            reserva.getEmpleado().getNombre() +" "+reserva.getEmpleado().getApellido()))
                     .toList();
 
-            return new VueloDTO(vuelo.getId_vuelo(), vuelo.getCod_vuelo(), vuelo.getOrigen(), vuelo.getDestino(), vuelo.getAsiento(), vuelo.getPrecio(), vuelo.getFecha_ida(), vuelo.getFecha_vuelta(), todasReservas.stream().distinct().toList());
+            return new VueloDTO(vuelo.getId_vuelo(), vuelo.getCod_vuelo(), vuelo.getOrigen(), vuelo.getDestino(), vuelo.getAsiento(), vuelo.getPrecio(), vuelo.getFecha_ida(), vuelo.getFecha_vuelta(), todasReservas);
         }
     }
 

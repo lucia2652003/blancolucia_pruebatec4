@@ -11,7 +11,6 @@ import java.util.List;
 @Data @AllArgsConstructor @NoArgsConstructor
 public class ReservaDTO {
 
-    @JsonIgnore
     @JsonProperty("idReserva")
     private Long identReserva;
 
@@ -23,22 +22,9 @@ public class ReservaDTO {
     @JsonProperty("empleadoId")
     private EmpleadoDTO pasajero;
 
-    @JsonProperty("Origen")
-    private String origin;
-
-    @JsonProperty("Destino")
-    private String destino;
-
-    @JsonProperty("Fecha_Ida")
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate fecha_ida;
-
     @JsonProperty("Cod_Vuelo")
     private String vuelo_asociado;
 
-    @JsonProperty("Total Pasajeros")
-    private Integer total_pasajeros;
-
-    @JsonProperty("Pasajeros")
-    private List<EmpleadoDTO> pasjs;
+    @JsonProperty("Pasajero")
+    private String empleadoDTO;
 }
