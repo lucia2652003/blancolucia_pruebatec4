@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \r\n  \"vueloId\": {\r\n    \"codVuelo\": 2,\r\n        \"Num_vuelo\": \"MAPA-5821\",\r\n        \"Origen\": \"Madrid\",\r\n        \"Destino\": \"París\",\r\n        \"Tipo Asiento\": \"BUSINESS\",\r\n        \"Precio por persona\": 3652.0,\r\n        \"Fecha Ida\": \"15/03/2025\",\r\n        \"Fecha Vuelta\": \"30/03/2025\"\r\n  },\r\n  \"empleadoId\": {\r\n    \"codEmpleado\": 2\r\n  }\r\n}",
+					"raw": "{ \r\n  \"vueloId\": {\r\n   \"codVuelo\": 1\r\n  },\r\n  \"empleadoId\": {\r\n    \"codEmpleado\": 1\r\n  }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

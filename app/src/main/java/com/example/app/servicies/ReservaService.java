@@ -58,9 +58,9 @@ public class ReservaService implements IReservaService{
     @Override
     public EmpleadoDTO existeEmpleado(Reserva reserva) {
         if(reserva.getEmpleado().getReservas() == null) {
-            return new EmpleadoDTO(reserva.getEmpleado().getId_empleado(), null , null, null);
+            return new EmpleadoDTO(reserva.getEmpleado().getId_empleado(), null , null, null, null);
         }else {
-            return new EmpleadoDTO(reserva.getEmpleado().getId_empleado(), reserva.getEmpleado().getNombre() , reserva.getEmpleado().getApellido(), null);
+            return new EmpleadoDTO(reserva.getEmpleado().getId_empleado(), reserva.getEmpleado().getNombre() , reserva.getEmpleado().getApellido(), null, null);
         }
     }
 
@@ -89,7 +89,7 @@ public class ReservaService implements IReservaService{
     @Override
     public Reserva conversorEntidad(ReservaDTO reservaDTO) {
 
-        Empleado empleado = new Empleado(reservaDTO.getPasajero().getIdentificadorEmpleado(), reservaDTO.getPasajero().getPrimerNombre(), reservaDTO.getPasajero().getPrimerNombre(), null);
+        Empleado empleado = new Empleado(reservaDTO.getPasajero().getIdentificadorEmpleado(), null, null, null, null);
         Vuelo vuelo = new Vuelo(reservaDTO.getVuelo().getIdentifiVuelo(), reservaDTO.getVuelo().getCodigoVuelo(), reservaDTO.getVuelo().getLugarDesde(), reservaDTO.getVuelo().getLugarHasta(), reservaDTO.getVuelo().getAsiento(), reservaDTO.getVuelo().getPrecioVuelo(), reservaDTO.getVuelo().getFechaIda(), reservaDTO.getVuelo().getFechaVuelta(), null);
 
         return new Reserva(reservaDTO.getIdentReserva(), empleado, vuelo);

@@ -3,6 +3,7 @@ package com.example.app.servicies;
 import com.example.app.dtos.EmpleadoDTO;
 import com.example.app.dtos.ReservaDTO;
 import com.example.app.dtos.VueloDTO;
+import com.example.app.entities.Empleado;
 import com.example.app.entities.Reserva;
 import com.example.app.entities.Vuelo;
 import com.example.app.repositories.IVueloRepository;
@@ -83,7 +84,6 @@ public class VueloService implements IVueloService{
         if(existe.isPresent()){
             Vuelo encontrado = existe.get();
 
-            encontrado.setCod_vuelo(entidad.getCodigoVuelo());
             encontrado.setOrigen(entidad.getLugarDesde());
             encontrado.setDestino(entidad.getLugarHasta());
             encontrado.setAsiento(entidad.getAsiento());
@@ -99,8 +99,16 @@ public class VueloService implements IVueloService{
 
     @Override
     public List<VueloDTO> eliminarVuelo(Long id) {
-        repository.deleteById(id);
-        return this.mostrarVuelos();
+
+        VueloDTO reservaDTO = this.buscarVueloID(id);
+
+        //Para darle de baja debemos comprobar si no tiene reservas disponibles
+        if(reservaDTO.getReservas().isEmpty()){
+            repository.deleteById(id);
+            return this.mostrarVuelos();
+        }else { //Le mandamos una lista y vemos que no fue eliminado el vuelo
+            return this.mostrarVuelos();
+        }
     }
 
     @Override
@@ -125,6 +133,11 @@ public class VueloService implements IVueloService{
 
     @Override
     public Vuelo conversorEntidad(VueloDTO vueloDTO) {
+      /*  List<Reserva> reservas = vueloDTO.getReservas().stream().map(reservaDTO -> new Reserva(reservaDTO.getIdentReserva(),
+                new Empleado(reservaDTO.getPasajero().getIdentificadorEmpleado(), reservaDTO.getPasajero().getNombre(),
+                        reservaDTO.getPasajero().getPrimerNombre(), null,null),
+                this.conversorEntidad(reservaDTO.getVuelo()))).toList();*/
+
         return new Vuelo(vueloDTO.getIdentifiVuelo(),
                 vueloDTO.getCodigoVuelo(),
                 vueloDTO.getLugarDesde(),
@@ -132,6 +145,6 @@ public class VueloService implements IVueloService{
                 vueloDTO.getAsiento(),
                 vueloDTO.getPrecioVuelo(),
                 vueloDTO.getFechaIda(),
-                vueloDTO.getFechaVuelta(), null);
+                vueloDTO.getFechaVuelta(), new ArrayList<>());
     }
 }

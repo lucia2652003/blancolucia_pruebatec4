@@ -23,7 +23,10 @@ public class Empleado {
     private String apellido;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "empleado", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "empleado", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Reserva> reservas;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "empleado", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Habitacion> habitaciones;
 }

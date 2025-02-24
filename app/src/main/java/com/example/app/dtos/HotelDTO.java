@@ -1,26 +1,22 @@
 package com.example.app.dtos;
 
-import com.example.app.entities.Hotel;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class HotelDTO {
 
-    @JsonIgnore
-    private Long identifiHotel;
+    @JsonProperty("codHotel")
+    private Long idHotel;
 
-    @JsonProperty("Cod_Hotel")
+    @JsonProperty("CDHotel")
     private String codigoHotel;
 
     @JsonProperty("Nombre")
@@ -28,12 +24,6 @@ public class HotelDTO {
 
     @JsonProperty("Lugar")
     private String lugar;
-
-    @JsonProperty("Tipo Habitacion")
-    private Hotel.TipoHabitacion habitacion;
-
-    @JsonProperty("Precio por persona")
-    private Double precioHabit;
 
     @JsonProperty("Fecha_Disp_Desde")
     @JsonFormat(pattern = "dd/MM/yyyy")
@@ -43,7 +33,8 @@ public class HotelDTO {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate fechaFin;
 
-    @JsonProperty("Reservado")
-    private String reservado;
+    @JsonManagedReference("hotel-habitacion")
+    @JsonProperty("Habitaciones")
+    private List<HabitacionDTO> habitaciones;
 
 }

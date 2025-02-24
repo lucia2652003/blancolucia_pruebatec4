@@ -1,12 +1,15 @@
 package com.example.app.servicies;
 
+import com.example.app.dtos.HabitacionDTO;
 import com.example.app.dtos.HotelDTO;
+import com.example.app.entities.Habitacion;
 import com.example.app.entities.Hotel;
 import com.example.app.repositories.IHotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,11 +68,8 @@ public class HotelService implements IHotelService{
 
             encontrado.setNombre(entidad.getNombreHotel());
             encontrado.setLugar(entidad.getLugar());
-            encontrado.setTipoHabit(entidad.getHabitacion());
-            encontrado.setPrecioHabit(entidad.getPrecioHabit());
             encontrado.setFecha_inicio(entidad.getFechaInicio());
             encontrado.setFecha_fin(entidad.getFechaFin());
-            encontrado.setReservado(entidad.getReservado().equals("SI"));
 
             Hotel actualizado = repository.save(encontrado);
             return  this.conversotDTO(actualizado);
@@ -85,38 +85,37 @@ public class HotelService implements IHotelService{
 
     @Override
     public HotelDTO conversotDTO(Hotel hotel) {
-        /*
-         *  true-1 si hay reserva
-         *  false-0 no hay reserva
-         */
+        HabitacionDTO habitacionDTO = new HabitacionDTO();
+        if(hotel.getHabitaciones() == null){
+            habitacionDTO = null;
+            return null;
+        }else{
+            List<HabitacionDTO> habitaciones = hotel.getHabitaciones().stream().map(habitacion -> new HabitacionDTO(
+                    habitacion.getId_habitacion(),
+                    null,null,
+                    habitacion.getFecha_inicio(),
+                    habitacion.getFecha_fin(),
+                    habitacion.getTipoHabit(),
+                    habitacion.getPrecioHabit(),
+                    0,
+                    habitacion.getHotel().getCod_hotel(),
+                    habitacion.getEmpleado().getNombre() + " "+habitacion.getEmpleado().getApellido()
+            )).toList();
 
-        HotelDTO nuevo = new HotelDTO();
+            return new HotelDTO(hotel.getId_hotel(), hotel.getCod_hotel(), hotel.getNombre(), hotel.getLugar(), hotel.getFecha_inicio(), hotel.getFecha_fin(), habitaciones);
+        }
 
-        nuevo.setCodigoHotel(hotel.getCod_hotel());
-        nuevo.setNombreHotel(hotel.getNombre());
-        nuevo.setLugar(hotel.getLugar());
-        nuevo.setHabitacion(hotel.getTipoHabit());
-        nuevo.setPrecioHabit(hotel.getPrecioHabit());
-        nuevo.setFechaInicio(hotel.getFecha_inicio());
-        nuevo.setFechaFin(hotel.getFecha_fin());
-        if(hotel.getReservado()) nuevo.setReservado("SI");
-        else nuevo.setReservado("NO");
-
-        return nuevo;
     }
 
     @Override
     public Hotel conversorEntidad(HotelDTO hotelDTO) {
-
-        return new Hotel(hotelDTO.getIdentifiHotel(),
+        return new Hotel(hotelDTO.getIdHotel(),
                 hotelDTO.getCodigoHotel(),
                 hotelDTO.getNombreHotel(),
                 hotelDTO.getLugar(),
-                hotelDTO.getHabitacion(),
-                hotelDTO.getPrecioHabit(),
                 hotelDTO.getFechaInicio(),
                 hotelDTO.getFechaFin(),
-                hotelDTO.getReservado().equals("SI")
+                new ArrayList<>()
         );
     }
 }

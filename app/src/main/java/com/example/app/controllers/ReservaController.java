@@ -13,12 +13,6 @@ public class ReservaController {
     @Autowired
     private IReservaService service;
 
-    //localhost:8080/agency/1
-    @GetMapping("/{id}")
-    public ResponseEntity buscarReserva(@PathVariable Long id){
-        return ResponseEntity.ok(service.buscarReservas(id));
-    }
-
     //localhost:8080/agency/flight-booking/new
     @PostMapping("/flight-booking/new")
     public ResponseEntity<ReservaDTO> crearReserva(@RequestBody ReservaDTO reservaDTO){

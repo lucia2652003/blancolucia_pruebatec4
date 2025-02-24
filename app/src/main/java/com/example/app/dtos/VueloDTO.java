@@ -42,7 +42,7 @@ public class VueloDTO {
     private LocalDate fechaVuelta;
 
     @JsonManagedReference("vuelo-reserva")
-    @JsonProperty("susReservas")
+    @JsonProperty("Pasajeros")
     private List<ReservaDTO> reservas;
 
 }

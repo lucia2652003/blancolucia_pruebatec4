@@ -1,6 +1,7 @@
 package com.example.app.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,25 +31,12 @@ public class Hotel {
     private String lugar;
 
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private TipoHabitacion tipoHabit;
-    public enum TipoHabitacion {
-        SINGLE,
-        DOBLE,
-        TRIPLE,
-        MULTIPLE
-    }
-
-    @Column(nullable = false)
-    private Double precioHabit;
-
-    @Column(nullable = false)
     private LocalDate fecha_inicio;
 
     @Column(nullable = false)
     private LocalDate fecha_fin;
 
-    @Column(nullable = false)
-    private Boolean reservado;
-
+    @JsonManagedReference
+    @OneToMany(mappedBy = "hotel", fetch = FetchType.EAGER)
+    private List<Habitacion> habitaciones;
 }

@@ -20,7 +20,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "localhost:8080/agency/flights/1"
+				"url": "localhost:8080/agency/flights/7"
 			},
 			"response": []
 		},
@@ -31,7 +31,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"Num_vuelo\": \"BAMI-1235\",\r\n    \"Origen\": \"Barcelona\",\r\n    \"Destino\": \"Miami\",\r\n    \"Tipo Asiento\": \"ECONOMY\",\r\n    \"Precio por persona\": 650,\r\n    \"Fecha Ida\": \"10/02/2024\",\r\n    \"Fecha Vuelta\": \"15/02/2024\"\r\n}",
+					"raw": "{\r\n    \"Num_vuelo\": \"CAME-0321\",\r\n    \"Origen\": \"Cartagena\",\r\n    \"Destino\": \"Medellín\",\r\n    \"Tipo Asiento\": \"ECONOMY\",\r\n    \"Precio por persona\": 780,\r\n    \"Fecha Ida\": \"23/01/2024\",\r\n    \"Fecha Vuelta\": \"31/01/2024\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -65,7 +65,44 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": "localhost:8080/agency/flights/delete/1"
+				"url": "localhost:8080/agency/flights/delete/2"
+			},
+			"response": []
+		},
+		{
+			"name": "Mostrar Vuelos Disponibles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/agency/flights?dateFrom=10/02/2025&dateTo=25/02/2025&origin=Barcelona&destination=Miami",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"agency",
+						"flights"
+					],
+					"query": [
+						{
+							"key": "dateFrom",
+							"value": "10/02/2025"
+						},
+						{
+							"key": "dateTo",
+							"value": "25/02/2025"
+						},
+						{
+							"key": "origin",
+							"value": "Barcelona"
+						},
+						{
+							"key": "destination",
+							"value": "Miami"
+						}
+					]
+				}
 			},
 			"response": []
 		}
