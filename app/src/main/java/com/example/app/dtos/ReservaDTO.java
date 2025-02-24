@@ -33,9 +33,12 @@ public class ReservaDTO {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate fecha_ida;
 
-    @JsonProperty("Vuelo")
+    @JsonProperty("Cod_Vuelo")
     private String vuelo_asociado;
 
-    @JsonProperty("Totel Pasajeros")
+    @JsonProperty("Total Pasajeros")
     private Integer total_pasajeros;
+
+    @JsonProperty("Pasajeros")
+    private List<EmpleadoDTO> pasjs;
 }

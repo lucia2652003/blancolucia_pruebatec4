@@ -118,7 +118,7 @@ public class VueloService implements IVueloService{
                             reserva.getVuelo().getDestino(),
                             reserva.getVuelo().getFecha_ida(),
                             reserva.getVuelo().getCod_vuelo(),
-                            reserva.getVuelo().getReservas().size()))
+                            reserva.getVuelo().getReservas().size(), null))
                     .toList();
 
             return new VueloDTO(vuelo.getId_vuelo(), vuelo.getCod_vuelo(), vuelo.getOrigen(), vuelo.getDestino(), vuelo.getAsiento(), vuelo.getPrecio(), vuelo.getFecha_ida(), vuelo.getFecha_vuelta(), todasReservas.stream().distinct().toList());

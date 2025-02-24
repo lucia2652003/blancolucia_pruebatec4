@@ -41,11 +41,13 @@ public class ReservaService implements IReservaService{
     public ReservaDTO agregarReserva(ReservaDTO reservaDTO) {
         List<ReservaDTO> todos = this.todasReservas();
 
-        //Si hay una reserva con los mismos identificadores se envia JSON vacio y de ese mode se impide la duplicacion de datos
+        //Si hay ids que existe en la DB
         Optional<ReservaDTO> existe = todos.stream().filter(reservaDTO1 ->
                         reservaDTO1.getPasajero().getIdentificadorEmpleado().equals(reservaDTO.getPasajero().getIdentificadorEmpleado()) &&
                                 reservaDTO1.getVuelo().getIdentifiVuelo().equals(reservaDTO.getVuelo().getIdentifiVuelo()))
                 .findFirst();
+
+
 
         if(existe.isPresent()) return new ReservaDTO();
         else{
@@ -61,20 +63,12 @@ public class ReservaService implements IReservaService{
         if(reserva.getEmpleado().getReservas() == null) {
             return new EmpleadoDTO(reserva.getEmpleado().getId_empleado(), null , null, null);
         }else {
-            List<ReservaDTO> susReservas = reserva.getEmpleado().getReservas().stream()
-                    .map(reserva1 -> new ReservaDTO(reserva1.getId_reserva(),
-                           null, null, reserva1.getVuelo().getOrigen(), reserva1.getVuelo().getDestino(),
-                            reserva1.getVuelo().getFecha_ida(),
-                            reserva1.getVuelo().getCod_vuelo(),
-                            reserva1.getEmpleado().getReservas().size()))
-                    .toList();
-            return new EmpleadoDTO(reserva.getEmpleado().getId_empleado(), reserva.getEmpleado().getNombre() , reserva.getEmpleado().getApellido(), susReservas);
+            return new EmpleadoDTO(reserva.getEmpleado().getId_empleado(), reserva.getEmpleado().getNombre() , reserva.getEmpleado().getApellido(), null);
         }
     }
 
     @Override
     public VueloDTO tenerReservasVuelo(Reserva reserva) {
-
         if(reserva.getVuelo().getReservas() == null) {
             return new VueloDTO(reserva.getVuelo().getId_vuelo(), null , null , null, null , null , null, null, null);
         }else {
@@ -87,17 +81,16 @@ public class ReservaService implements IReservaService{
         EmpleadoDTO empleadoDTO = this.tenerReservas(reserva);
         VueloDTO vueloDTO = this.tenerReservasVuelo(reserva);
 
-        //Total de pasajeros
-        List<Reserva> empleados = repository.findAll().stream()
-                .filter(reserva1 -> reserva1.getVuelo().getId_vuelo().equals(vueloDTO.getIdentifiVuelo()))
-                .toList();
+        List<EmpleadoDTO> pasajeros = this.todasReservas().stream().map(ReservaDTO::getPasajero).toList();
 
+
+        //Para mostrar los datos debemos llevar el JSON de vuelo para pasarle los datos
         return new ReservaDTO(reserva.getId_reserva(), vueloDTO, empleadoDTO,
                     reserva.getVuelo().getOrigen(),
                     reserva.getVuelo().getDestino(),
                     reserva.getVuelo().getFecha_ida(),
                     reserva.getVuelo().getCod_vuelo(),
-                    empleados.size());
+                    pasajeros.size(), pasajeros);
     }
 
     @Override
