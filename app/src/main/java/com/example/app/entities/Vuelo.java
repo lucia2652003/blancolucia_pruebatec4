@@ -47,6 +47,6 @@ public class Vuelo {
     private LocalDate fecha_vuelta;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "vuelo", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "vuelo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Reserva> reservas;
 }

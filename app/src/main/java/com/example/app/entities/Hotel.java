@@ -30,12 +30,6 @@ public class Hotel {
     @Column(nullable = false)
     private String lugar;
 
-    @Column(nullable = false)
-    private LocalDate fecha_inicio;
-
-    @Column(nullable = false)
-    private LocalDate fecha_fin;
-
     @JsonManagedReference
     @OneToMany(mappedBy = "hotel", fetch = FetchType.EAGER)
     private List<Habitacion> habitaciones;

@@ -38,11 +38,8 @@ public class HabitacionDTO {
     @JsonProperty("Tipo Habitacion")
     private Habitacion.TipoHabitacion tipo;
 
-    @JsonProperty("Precio Habit.")
+    @JsonProperty("Precio Habit. €")
     private Double precio;
-
-    //Total de noches
-    private Integer noches;
 
     @JsonProperty("hotel_asociado")
     private String nombreHotel;

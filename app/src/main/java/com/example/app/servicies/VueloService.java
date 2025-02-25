@@ -100,13 +100,15 @@ public class VueloService implements IVueloService{
     @Override
     public List<VueloDTO> eliminarVuelo(Long id) {
 
-        VueloDTO reservaDTO = this.buscarVueloID(id);
+        VueloDTO existe = this.buscarVueloID(id);
 
-        //Para darle de baja debemos comprobar si no tiene reservas disponibles
-        if(reservaDTO.getReservas().isEmpty()){
-            repository.deleteById(id);
+        //Para darle de baja
+        // Debe existir el vuelo con es ID
+        // Debemos comprobar si no tiene reservas disponibles
+        if(existe == null || !existe.getReservas().isEmpty()){
             return this.mostrarVuelos();
-        }else { //Le mandamos una lista y vemos que no fue eliminado el vuelo
+        }else { //Le mandamos una lista y vemos que fue eliminado el vuelo
+            repository.deleteById(id);
             return this.mostrarVuelos();
         }
     }

@@ -2,6 +2,7 @@ package com.example.app.servicies;
 
 import com.example.app.dtos.HabitacionDTO;
 import com.example.app.dtos.HotelDTO;
+import com.example.app.entities.Empleado;
 import com.example.app.entities.Habitacion;
 import com.example.app.entities.Hotel;
 import com.example.app.repositories.IHotelRepository;
@@ -55,8 +56,9 @@ public class HotelService implements IHotelService{
     public HotelDTO buscarHotel(Long id) {
         Optional<Hotel> encontrado = repository.findById(id);
 
-        if(encontrado.isPresent()) return this.conversotDTO(encontrado.get());
-        else return new HotelDTO();
+        if(encontrado.isPresent()){
+            return this.conversotDTO(encontrado.get());
+        }else return new HotelDTO();
     }
 
     @Override
@@ -68,8 +70,6 @@ public class HotelService implements IHotelService{
 
             encontrado.setNombre(entidad.getNombreHotel());
             encontrado.setLugar(entidad.getLugar());
-            encontrado.setFecha_inicio(entidad.getFechaInicio());
-            encontrado.setFecha_fin(entidad.getFechaFin());
 
             Hotel actualizado = repository.save(encontrado);
             return  this.conversotDTO(actualizado);
@@ -79,8 +79,17 @@ public class HotelService implements IHotelService{
 
     @Override
     public List<HotelDTO> eliminarHotel(Long id) {
-        repository.deleteById(id);
-        return this.mostrarHoteles();
+        HotelDTO existe = this.buscarHotel(id);
+
+        //Si me recibo un constructor vacio o
+        // Existe el hotel y tiene habitaciones me manda el listado
+        if(existe == null || !existe.getHabitaciones().isEmpty()){
+            return this.mostrarHoteles();
+        }else {
+            repository.deleteById(id);
+            return this.mostrarHoteles();
+        }
+
     }
 
     @Override
@@ -97,12 +106,11 @@ public class HotelService implements IHotelService{
                     habitacion.getFecha_fin(),
                     habitacion.getTipoHabit(),
                     habitacion.getPrecioHabit(),
-                    0,
                     habitacion.getHotel().getCod_hotel(),
                     habitacion.getEmpleado().getNombre() + " "+habitacion.getEmpleado().getApellido()
             )).toList();
 
-            return new HotelDTO(hotel.getId_hotel(), hotel.getCod_hotel(), hotel.getNombre(), hotel.getLugar(), hotel.getFecha_inicio(), hotel.getFecha_fin(), habitaciones);
+            return new HotelDTO(hotel.getId_hotel(), hotel.getCod_hotel(), hotel.getNombre(), hotel.getLugar(), habitaciones);
         }
 
     }
@@ -113,8 +121,6 @@ public class HotelService implements IHotelService{
                 hotelDTO.getCodigoHotel(),
                 hotelDTO.getNombreHotel(),
                 hotelDTO.getLugar(),
-                hotelDTO.getFechaInicio(),
-                hotelDTO.getFechaFin(),
                 new ArrayList<>()
         );
     }

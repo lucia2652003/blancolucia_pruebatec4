@@ -25,14 +25,6 @@ public class HotelDTO {
     @JsonProperty("Lugar")
     private String lugar;
 
-    @JsonProperty("Fecha_Disp_Desde")
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate fechaInicio;
-
-    @JsonProperty("Fecha_Disp_Hasta")
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate fechaFin;
-
     @JsonManagedReference("hotel-habitacion")
     @JsonProperty("Habitaciones")
     private List<HabitacionDTO> habitaciones;
