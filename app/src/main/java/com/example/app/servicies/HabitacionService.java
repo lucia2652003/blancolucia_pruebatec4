@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.awt.font.TextHitInfo;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -55,12 +54,12 @@ public class HabitacionService implements IHabitacionService{
     public List<HabitacionDTO> verHabitacionesDispo(LocalDate fechaDesde, LocalDate fechaHasta, String lugar) {
 
         //Buscar las habitaciones de dichos hoteles que se encuentran en ese lugar
-        List<HabitacionDTO> hoteleLugar = this.mostrarHabitaciones().stream().filter(habitacionDTO ->
+        List<HabitacionDTO> hotelLugar = this.mostrarHabitaciones().stream().filter(habitacionDTO ->
                         habitacionDTO.getHotel().getLugar().equalsIgnoreCase(lugar))
                 .toList();
 
         //Buscarlos de ese rango de fechas de habitaciones
-        return hoteleLugar.stream()
+        return hotelLugar.stream()
                 .filter(habitacion -> !(fechaDesde.isAfter(habitacion.getFechaFin()) || fechaHasta.isBefore(habitacion.getFechaInicio())))
                 .collect(Collectors.toList());
     }
@@ -111,6 +110,7 @@ public class HabitacionService implements IHabitacionService{
                     habitacion.getEmpleado().getNombre() + " "+habitacion.getEmpleado().getApellido());
         }
     }
+
     @Override
     public Habitacion conversorEntidad(HabitacionDTO habitacionDTO) {
         Empleado empleado = new Empleado(habitacionDTO.getEmpleado().getIdentificadorEmpleado(), null, null, null, null);

@@ -19,7 +19,7 @@ public class SecurityConfig {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorized ->
-                        authorized.requestMatchers(HttpMethod.GET, "/agency/**").permitAll().anyRequest()
+                        authorized.requestMatchers(HttpMethod.GET, "/**", "/doc").permitAll().anyRequest()
                                 .authenticated()
                         )
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)

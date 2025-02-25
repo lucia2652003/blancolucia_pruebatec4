@@ -9,11 +9,18 @@
 		{
 			"name": "Crear Reserva Hotel",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "1234",
+						"username": "agencia"
+					}
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"hotel\":{\r\n        \"codHotel\": 1,\r\n        \"CDHotel\": \"AR-0002\",\r\n        \"Nombre\": \"Atlantis Resort\",\r\n        \"Lugar\": \"Miami\"\r\n    },\r\n    \"empleadoId\": {\r\n    \"codEmpleado\": 1\r\n    },\r\n    \"Fecha Quedada\": \"11/02/2025\",\r\n    \"Fecha Salida\": \"14/02/2025\",\r\n    \"Tipo Habitacion\": \"SINGLE\",\r\n    \"Precio Habit.\": 1520\r\n}",
+					"raw": "{\r\n    \"hotel\":{\r\n        \"codHotel\": 1\r\n    },\r\n    \"empleadoId\": {\r\n       \"codEmpleado\": 1\r\n    },\r\n    \"Fecha Quedada\": \"14/08/2025\",\r\n    \"Fecha Salida\": \"28/08/2025\",\r\n    \"Tipo Habitacion\": \"SINGLE\",\r\n    \"Precio Habit. €\": 7833\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -21,6 +28,39 @@
 					}
 				},
 				"url": "localhost:8080/agency/room-booking/new"
+			},
+			"response": []
+		},
+		{
+			"name": "Ver Habitaciones",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/agency/rooms?dateFrom=01/01/2025&dateTo=20/02/2025&destination=Buenos Aires",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"agency",
+						"rooms"
+					],
+					"query": [
+						{
+							"key": "dateFrom",
+							"value": "01/01/2025"
+						},
+						{
+							"key": "dateTo",
+							"value": "20/02/2025"
+						},
+						{
+							"key": "destination",
+							"value": "Buenos Aires"
+						}
+					]
+				}
 			},
 			"response": []
 		}

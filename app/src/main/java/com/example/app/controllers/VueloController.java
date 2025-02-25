@@ -25,11 +25,8 @@ public class VueloController {
                                                     @RequestParam(required = false, name = "origin") String origen,
                                                     @RequestParam(required = false, name = "destination") String destino){
 
-        if(destino == null && origen == null  && fechaIda == null  && fechaVuelta == null){
-            return service.mostrarListaRE(service.mostrarVuelos());
-        }else {
-            return service.mostrarListaRE(service.mostrarVuelosDisponibles(fechaIda, fechaVuelta, origen, destino));
-        }
+        if(destino == null && origen == null  && fechaIda == null  && fechaVuelta == null) return service.mostrarListaRE(service.mostrarVuelos());
+        else return service.mostrarListaRE(service.verVuelosParametros(fechaIda, fechaVuelta, origen, destino));
     }
 
     //localhost:8080/agency/flights/new

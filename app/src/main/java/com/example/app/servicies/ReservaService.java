@@ -32,7 +32,7 @@ public class ReservaService implements IReservaService{
     public ReservaDTO buscarReservas(Long id) {
         Optional<Reserva> existe = repository.findById(id);
         if(existe.isPresent()) return this.conversorDTO(existe.get());
-        else return this.conversorDTO(new Reserva());
+        else return new ReservaDTO();
     }
 
     @Override

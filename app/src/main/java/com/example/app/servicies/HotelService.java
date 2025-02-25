@@ -18,7 +18,7 @@ import java.util.Optional;
 public class HotelService implements IHotelService{
 
     @Autowired
-    IHotelRepository repository;
+    private IHotelRepository repository;
 
     @Override
     public List<HotelDTO> mostrarHoteles() {

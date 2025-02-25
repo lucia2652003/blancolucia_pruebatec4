@@ -1,17 +1,13 @@
 package com.example.app.servicies;
 
-import com.example.app.dtos.EmpleadoDTO;
 import com.example.app.dtos.ReservaDTO;
 import com.example.app.dtos.VueloDTO;
-import com.example.app.entities.Empleado;
-import com.example.app.entities.Reserva;
 import com.example.app.entities.Vuelo;
 import com.example.app.repositories.IVueloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,18 +28,30 @@ public class VueloService implements IVueloService{
                 .toList();
     }
 
+    @Override
+    public List<VueloDTO> verVuelosParametros(LocalDate fechaIda, LocalDate fechaVuelta, String origen, String destino) {
+        return List.of();
+    }
 
     @Override
-    public List<VueloDTO> mostrarVuelosDisponibles(LocalDate fechaIda, LocalDate fechaVuelta, String origen, String destino) {
-        List<VueloDTO> vuelos = this.mostrarVuelos();
+    public List<VueloDTO> verVuelosSinFI(LocalDate fechaVuelta, String origen, String destino) {
+        return List.of();
+    }
 
-        return vuelos.stream().filter(vueloDTO ->
-                        vueloDTO.getFechaIda().equals(fechaIda) ||
-                                vueloDTO.getFechaVuelta().equals(fechaVuelta) ||
-                                vueloDTO.getLugarDesde().equalsIgnoreCase(origen) ||
-                                vueloDTO.getLugarHasta().equalsIgnoreCase(destino))
+    @Override
+    public List<VueloDTO> verVuelosFechas(LocalDate fechaIda, LocalDate fechaVuelta) {
+        return List.of();
+    }
+
+    @Override
+    public List<VueloDTO> verVuelosLugares(String origen, String destino) {
+        return this.mostrarVuelos().stream()
+                .filter(vueloDTO ->
+                        vueloDTO.getLugarDesde().equals(origen)
+                        && vueloDTO.getLugarHasta().equals(destino))
                 .toList();
     }
+
 
 
     /*Para evitar que en Postman nos muestre [] le mandamos un ResponseEntity
@@ -62,7 +70,7 @@ public class VueloService implements IVueloService{
                                .filter(vuelo -> vuelo.getCod_vuelo().equals(nuevo.getCod_vuelo()))
                                .findFirst();
 
-        if(existe.isPresent()) return this.conversorDTO(new Vuelo());
+        if(existe.isPresent()) return new VueloDTO();
         else {
             Vuelo creado = repository.save(nuevo);
             return this.conversorDTO(creado);
@@ -74,7 +82,7 @@ public class VueloService implements IVueloService{
     public VueloDTO buscarVueloID(Long id) {
         Optional<Vuelo> buscar = repository.findById(id);
         if(buscar.isPresent()) return this.conversorDTO(buscar.get());
-        else return this.conversorDTO(new Vuelo());
+        else return new VueloDTO();
     }
 
     @Override
@@ -93,7 +101,7 @@ public class VueloService implements IVueloService{
 
             Vuelo actualizado = repository.save(encontrado);
             return this.conversorDTO(actualizado);
-        }else return this.conversorDTO(new Vuelo());
+        }else return new VueloDTO();
 
     }
 
@@ -135,11 +143,6 @@ public class VueloService implements IVueloService{
 
     @Override
     public Vuelo conversorEntidad(VueloDTO vueloDTO) {
-      /*  List<Reserva> reservas = vueloDTO.getReservas().stream().map(reservaDTO -> new Reserva(reservaDTO.getIdentReserva(),
-                new Empleado(reservaDTO.getPasajero().getIdentificadorEmpleado(), reservaDTO.getPasajero().getNombre(),
-                        reservaDTO.getPasajero().getPrimerNombre(), null,null),
-                this.conversorEntidad(reservaDTO.getVuelo()))).toList();*/
-
         return new Vuelo(vueloDTO.getIdentifiVuelo(),
                 vueloDTO.getCodigoVuelo(),
                 vueloDTO.getLugarDesde(),
@@ -147,6 +150,7 @@ public class VueloService implements IVueloService{
                 vueloDTO.getAsiento(),
                 vueloDTO.getPrecioVuelo(),
                 vueloDTO.getFechaIda(),
-                vueloDTO.getFechaVuelta(), new ArrayList<>());
+                vueloDTO.getFechaVuelta(),
+                new ArrayList<>());
     }
 }

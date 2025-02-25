@@ -30,7 +30,7 @@ public class VueloDTO {
     @JsonProperty("Tipo Asiento")
     private Vuelo.TipoAsiento asiento;
 
-    @JsonProperty("Precio por persona")
+    @JsonProperty("Precio por persona €")
     private Double precioVuelo;
 
     @JsonProperty("Fecha Ida")

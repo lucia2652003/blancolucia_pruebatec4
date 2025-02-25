@@ -9,6 +9,13 @@
 		{
 			"name": "Agregar Reserva Vuelo",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "1234",
+						"username": "agencia"
+					}
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
