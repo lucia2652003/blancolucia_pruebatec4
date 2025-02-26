@@ -22,7 +22,7 @@ public interface IHabitacionService {
     Optional<HabitacionDTO> existeUsuario(HabitacionDTO habitacionDTO);
 
     //Buscar habitaciones disponibles
-    List<HabitacionDTO> verHabitacionesDispo(LocalDate fechaDesde, LocalDate fechaHasta, String lugar);
+    List<HabitacionDTO> verHabitacionesDisp(LocalDate fechaDesde, LocalDate fechaHasta, String lugar);
 
     //Respuesta del listado Habitaciones
     ResponseEntity verificacionListado(List<HabitacionDTO> listado);

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
+//Establecemos como controlador y escucha las peticiones y creamos los endpoint
 @RestController
 @RequestMapping("/agency/flights")
 public class VueloController {
@@ -19,15 +20,18 @@ public class VueloController {
     IVueloService service;
 
     //localhost:8080/agency/flights
-    //localhost:8080/agency/flights?dateFrom=10/02/2025&dateTo=25/02/2025&origin=Barcelona&destination=Miami
-    @GetMapping
-    public ResponseEntity<List<VueloDTO>> verVuelos(@RequestParam(required = false, name = "dateFrom") @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate fechaIda,
-                                                    @RequestParam(required = false, name = "dateTo") @DateTimeFormat(pattern = "dd/MM/yyyy")  LocalDate fechaVuelta,
+    //localhost:8080/agency/flights?dateFrom=01/01/2025&dateTo=20/05/2025&origin=Barcelona&destination=Madrid
+    //Le pasamos parámetros que no son requeridos podemos quitar uno y que nos filtren los vuelos determinados
+    @GetMapping("")
+    public ResponseEntity<List<VueloDTO>> verVuelos(@RequestParam(required = false, name = "dateFrom") @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate fechaInicio,
+                                                    @RequestParam(required = false, name = "dateTo") @DateTimeFormat(pattern = "dd/MM/yyyy")  LocalDate fechaFin,
                                                     @RequestParam(required = false, name = "origin") String origen,
                                                     @RequestParam(required = false, name = "destination") String destino){
 
-        if(destino == null && origen == null  && fechaIda == null  && fechaVuelta == null) return service.mostrarListaRE(service.mostrarVuelos());
-        else return service.mostrarListaRE(service.verVuelosParametros(fechaIda, fechaVuelta, origen, destino));
+        //Si quitamos la query se mostrará todos los vuelos.
+        if(destino == null && origen == null  && fechaInicio == null  && fechaFin == null) return service.mostrarListaRE(service.mostrarVuelos());
+        //Le mostramos los vuelos que se encuentran en ese rango de fechas, determinado el origen y destino
+        else return service.mostrarListaRE(service.verVuelosDisponibles(fechaInicio, fechaFin, origen, destino));
     }
 
     //localhost:8080/agency/flights/new

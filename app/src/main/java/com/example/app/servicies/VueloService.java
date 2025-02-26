@@ -29,29 +29,15 @@ public class VueloService implements IVueloService{
     }
 
     @Override
-    public List<VueloDTO> verVuelosParametros(LocalDate fechaIda, LocalDate fechaVuelta, String origen, String destino) {
-        return List.of();
-    }
-
-    @Override
-    public List<VueloDTO> verVuelosSinFI(LocalDate fechaVuelta, String origen, String destino) {
-        return List.of();
-    }
-
-    @Override
-    public List<VueloDTO> verVuelosFechas(LocalDate fechaIda, LocalDate fechaVuelta) {
-        return List.of();
-    }
-
-    @Override
-    public List<VueloDTO> verVuelosLugares(String origen, String destino) {
+    public List<VueloDTO> verVuelosDisponibles(LocalDate fechaInicio, LocalDate fechaFin, String origen, String destino) {
+        //Nos muestra el listado al igual que comprueba de que los parámetros están vacíos
         return this.mostrarVuelos().stream()
-                .filter(vueloDTO ->
-                        vueloDTO.getLugarDesde().equals(origen)
-                        && vueloDTO.getLugarHasta().equals(destino))
+                .filter(vuelo -> fechaInicio == null || fechaInicio.isBefore(vuelo.getFechaIda()))
+                .filter(vueloFechaSalida -> fechaFin == null || fechaFin.isAfter(vueloFechaSalida.getFechaVuelta()))
+                .filter(vueloDTO -> origen == null || vueloDTO.getLugarDesde().equalsIgnoreCase(origen))
+                .filter(vueloDTO ->destino == null || vueloDTO.getLugarHasta().equalsIgnoreCase(destino))
                 .toList();
     }
-
 
 
     /*Para evitar que en Postman nos muestre [] le mandamos un ResponseEntity
@@ -65,13 +51,15 @@ public class VueloService implements IVueloService{
     @Override
     public VueloDTO crearVuelo(VueloDTO vueloDTO) {
         Vuelo nuevo = this.conversorEntidad(vueloDTO);
+
         Optional<Vuelo> existe = repository.findAll()
                                .stream()
                                .filter(vuelo -> vuelo.getCod_vuelo().equals(nuevo.getCod_vuelo()))
                                .findFirst();
 
+        //Si existe el vuelo le mandamos un DTO vacío e impide la inserción de DB
         if(existe.isPresent()) return new VueloDTO();
-        else {
+        else {//Lo crea y muestra la conversión Entidad a DTO
             Vuelo creado = repository.save(nuevo);
             return this.conversorDTO(creado);
         }
@@ -81,6 +69,7 @@ public class VueloService implements IVueloService{
     @Override
     public VueloDTO buscarVueloID(Long id) {
         Optional<Vuelo> buscar = repository.findById(id);
+        //Sí lo encuentra pasar DTO para mostrarlo JSON
         if(buscar.isPresent()) return this.conversorDTO(buscar.get());
         else return new VueloDTO();
     }
@@ -92,6 +81,7 @@ public class VueloService implements IVueloService{
         if(existe.isPresent()){
             Vuelo encontrado = existe.get();
 
+            //Nunca debemos modificar el código porque consideramos como parametro única
             encontrado.setOrigen(entidad.getLugarDesde());
             encontrado.setDestino(entidad.getLugarHasta());
             encontrado.setAsiento(entidad.getAsiento());
@@ -110,12 +100,12 @@ public class VueloService implements IVueloService{
 
         VueloDTO existe = this.buscarVueloID(id);
 
-        //Para darle de baja
-        // Debe existir el vuelo con es ID
+        // Para darle de baja
+        // Debe existir el vuelo con el ID
         // Debemos comprobar si no tiene reservas disponibles
         if(existe == null || !existe.getReservas().isEmpty()){
             return this.mostrarVuelos();
-        }else { //Le mandamos una lista y vemos que fue eliminado el vuelo
+        }else { //Le mandamos la lista y vemos que fue eliminado el vuelo
             repository.deleteById(id);
             return this.mostrarVuelos();
         }
@@ -126,7 +116,7 @@ public class VueloService implements IVueloService{
         ReservaDTO reservaDTO = new ReservaDTO();
         if(vuelo.getReservas() == null){ //No presenta reservas
             reservaDTO = null;
-            return null;
+            return null; //Nos muestra [] en las reservas
         }else {
             //Mostramos todos los pasajeros del hotel
             List<ReservaDTO> todasReservas = vuelo.getReservas().stream()
@@ -137,7 +127,8 @@ public class VueloService implements IVueloService{
                             reserva.getEmpleado().getNombre() +" "+reserva.getEmpleado().getApellido()))
                     .toList();
 
-            return new VueloDTO(vuelo.getId_vuelo(), vuelo.getCod_vuelo(), vuelo.getOrigen(), vuelo.getDestino(), vuelo.getAsiento(), vuelo.getPrecio(), vuelo.getFecha_ida(), vuelo.getFecha_vuelta(), todasReservas);
+            return new VueloDTO(vuelo.getId_vuelo(), vuelo.getCod_vuelo(), vuelo.getOrigen(), vuelo.getDestino(),
+                    vuelo.getAsiento(), vuelo.getPrecio(), vuelo.getFecha_ida(), vuelo.getFecha_vuelta(), todasReservas);
         }
     }
 

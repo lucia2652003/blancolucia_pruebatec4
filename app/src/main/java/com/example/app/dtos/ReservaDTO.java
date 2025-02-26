@@ -11,7 +11,7 @@ import java.util.List;
 @Data @AllArgsConstructor @NoArgsConstructor
 public class ReservaDTO {
 
-    /*Nos crean constructores, getters y setters, y asi hacemos limpieza del código*/
+    /*Crea constructores, getters y setters, y asi hacemos limpieza del código*/
 
     @JsonProperty("idReserva")
     private Long identReserva;
@@ -20,13 +20,36 @@ public class ReservaDTO {
     @JsonBackReference("vuelo-reserva")
     @JsonProperty("vueloId")
     private VueloDTO vuelo;
+    /*
+     * Referencia Vuelo JSON
+     *  "vueloId" : {
+     *    "codVuelo": 1,
+     *    "Num_vuelo": ...,
+     *    "Origen": ...,
+     *    "Destino": ...,
+     *    "Tipo Asiento": ...,
+     *    "Precio por persona €": ...,
+     *    "Fecha Ida": ...,
+     *    "Fecha Vuelta": ...,
+     *    "Pasajeros": []
+     * }
+     * */
+
 
     //Una reserva tiene un único empleado
     @JsonBackReference("empleado-reserva")
     @JsonProperty("empleadoId")
     private EmpleadoDTO pasajero;
+    /*
+     * Hace referencia en JSON
+     * "empleadoId":{
+     *     "codEmpleado" : 1,
+     *     "Nombre" : ...,
+     *     "primerNombre": ...
+     * }
+     * */
 
-    //Estos dos parámetros es para demos los IDS de las entidades asociadas
+    //Estos dos parámetros son para demostrar los IDS de las entidades asociadas
 
     @JsonProperty("Cod_Vuelo")
     private String vuelo_asociado;

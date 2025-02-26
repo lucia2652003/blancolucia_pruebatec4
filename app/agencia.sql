@@ -143,7 +143,7 @@ CREATE TABLE `vuelo` (
 INSERT INTO `vuelo` (`id_vuelo`, `asiento`, `cod_vuelo`, `destino`, `fecha_ida`, `fecha_vuelta`, `origen`, `precio`) VALUES
 (1, 'ECONOMY', 'BAMA-1515', 'Madrid', '2025-02-10', '2025-02-15', 'Barcelona', 781),
 (2, 'BUSINESS', 'MIMA-2547', 'Madrid', '2025-02-10', '2025-02-20', 'Miami', 1820),
-(3, 'ECONOMY', 'BAPO-1821', 'Polonia', '2025-02-10', '2025-03-11', 'Barcelona', 781),
+(3, 'ECONOMY', 'BAPO-1821', 'Polonia', '2025-02-10', '2025-03-11', 'Barcelona', 451),
 (4, 'ECONOMY', 'POMA-3667', 'Madrid', '2025-03-14', '2025-03-20', 'Polonia', 631);
 
 --

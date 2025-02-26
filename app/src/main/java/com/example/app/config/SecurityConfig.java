@@ -15,15 +15,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        //Le pasamos que solo los métodos GET no requieren de autenticación el resto si POST, PUT y DELETE
+        //Le pedimos que los métodos GET no requieren de autenticación que empiece por /** y el resto si (POST, PUT y DELETE)
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorized ->
-                        authorized.requestMatchers(HttpMethod.GET, "/**", "/doc").permitAll().anyRequest()
+                        authorized.requestMatchers(HttpMethod.GET, "/**").permitAll().anyRequest()
                                 .authenticated()
                         )
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+                //Para establecer en la autorización el tipo de autor y le ponemos un nombre
                 .httpBasic(httpBasic-> httpBasic.realmName("app"))
-                .build();
+                .build();//Construye la seguridad
     }
 }

@@ -15,7 +15,22 @@ import java.util.List;
 @Data @AllArgsConstructor @NoArgsConstructor
 public class VueloDTO {
 
-    /*Nos crean constructores, getters y setters, y asi hacemos limpieza del código*/
+    /*Crea constructores, getters y setters, y asi hacemos limpieza del código*/
+
+    /*
+    * Referencia Vuelo JSON
+    * {
+    *    "codVuelo": 1,
+    *    "Num_vuelo": ...,
+    *    "Origen": ...,
+    *    "Destino": ...,
+    *    "Tipo Asiento": ...,
+    *    "Precio por persona €": ...,
+    *    "Fecha Ida": ...,
+    *    "Fecha Vuelta": ...,
+    *    "Pasajeros": []
+    * }
+    * */
 
     @JsonProperty("codVuelo")
     private Long identifiVuelo;
@@ -39,6 +54,7 @@ public class VueloDTO {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate fechaIda;
 
+    //Establecer nombre en JSON y darle formato a las fechas
     @JsonProperty("Fecha Vuelta")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate fechaVuelta;

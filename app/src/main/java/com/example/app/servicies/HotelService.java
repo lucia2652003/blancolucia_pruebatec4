@@ -17,6 +17,7 @@ import java.util.Optional;
 @Service
 public class HotelService implements IHotelService{
 
+    /*Inyección de dependencias*/
     @Autowired
     private IHotelRepository repository;
 
@@ -30,10 +31,9 @@ public class HotelService implements IHotelService{
 
     @Override
     public ResponseEntity verListadoRE(List<HotelDTO> listado) {
+        //Si no presentas vuelos disponibles manda un mensaje diciendo que no esta de lo contrario los muestra
         if(listado.isEmpty()) return ResponseEntity.status(200).body("No hay hoteles registrados: "+listado.size());
-        else return ResponseEntity
-                .status(200)
-                .body(listado);
+        else return ResponseEntity.status(200).body(listado);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class HotelService implements IHotelService{
     public List<HotelDTO> eliminarHotel(Long id) {
         HotelDTO existe = this.buscarHotel(id);
 
-        //Si me recibo un constructor vacio o
+        // Si me recibo un constructor vacio
         // Existe el hotel y tiene habitaciones me manda el listado
         if(existe == null || !existe.getHabitaciones().isEmpty()){
             return this.mostrarHoteles();
@@ -97,7 +97,7 @@ public class HotelService implements IHotelService{
         HabitacionDTO habitacionDTO = new HabitacionDTO();
         if(hotel.getHabitaciones() == null){
             habitacionDTO = null;
-            return null;
+            return null;//Nos muestra [] en las habitaciones
         }else{
             List<HabitacionDTO> habitaciones = hotel.getHabitaciones().stream().map(habitacion -> new HabitacionDTO(
                     habitacion.getId_habitacion(),
@@ -112,7 +112,6 @@ public class HotelService implements IHotelService{
 
             return new HotelDTO(hotel.getId_hotel(), hotel.getCod_hotel(), hotel.getNombre(), hotel.getLugar(), habitaciones);
         }
-
     }
 
     @Override

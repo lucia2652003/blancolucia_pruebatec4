@@ -17,19 +17,21 @@ public class HabitacionController {
 
     /* Inyección de dependencias */
     @Autowired
-    private IHabitacionService service;
+    IHabitacionService service;
 
     //localhost:8080/agency/room-booking/new
+    //Envio de JSON para creacion
     @PostMapping("/room-booking/new")
     public ResponseEntity<HabitacionDTO> crearReservaHabitacion(@RequestBody HabitacionDTO habitacionDTO){
         return ResponseEntity.ok(service.crearHabitacion(habitacionDTO));
     }
 
     //localhost:8080/agency/rooms?dateFrom=01/01/2025&dateTo=14/04/2025&destination=Barcelona
+    //Obtener info habitaciones
     @GetMapping("/rooms")
     public ResponseEntity<List<HabitacionDTO>> mostrarHabitacionesDisp(@RequestParam(name = "dateFrom") @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate fechaDesde,
                                                                        @RequestParam(name = "dateTo") @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate fechaHasta,
                                                                        @RequestParam(name = "destination") String lugar){
-        return service.verificacionListado(service.verHabitacionesDispo(fechaDesde, fechaHasta, lugar));
+        return service.verificacionListado(service.verHabitacionesDisp(fechaDesde, fechaHasta, lugar));
     }
 }

@@ -20,25 +20,18 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "localhost:8080/agency/flights/1"
+				"url": "localhost:8080/agency/flights/5"
 			},
 			"response": []
 		},
 		{
 			"name": "Agregar Vuelo",
 			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": {
-						"password": "1234",
-						"username": "agencia"
-					}
-				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"Num_vuelo\": \"CAME-0321\",\r\n    \"Origen\": \"Cartagena\",\r\n    \"Destino\": \"Medellín\",\r\n    \"Tipo Asiento\": \"ECONOMY\",\r\n    \"Precio por persona €\": 780,\r\n    \"Fecha Ida\": \"10/02/2025\",\r\n    \"Fecha Vuelta\": \"23/02/2025\"\r\n}",
+					"raw": "{\r\n    \"Num_vuelo\": \"CAME-0321\",\r\n    \"Origen\": \"Cartagena\",\r\n    \"Destino\": \"Medellín\",\r\n    \"Tipo Asiento\": \"ECONOMY\",\r\n    \"Precio por persona €\": 780,\r\n    \"Fecha Ida\": \"10/05/2025\",\r\n    \"Fecha Vuelta\": \"23/05/2025\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -52,25 +45,18 @@
 		{
 			"name": "Actualizar Vuelo",
 			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": {
-						"password": "1234",
-						"username": "agencia"
-					}
-				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"Origen\": \"Barcelona\",\r\n    \"Destino\": \"Miami\",\r\n    \"Tipo Asiento\": \"ECONOMY\",\r\n    \"Precio por persona €\": 650,\r\n    \"Fecha Ida\": \"10/02/2025\",\r\n    \"Fecha Vuelta\": \"23/02/2025\"\r\n}",
+					"raw": "{\r\n    \"Origen\": \"Portugal\",\r\n    \"Destino\": \"Madrid\",\r\n    \"Tipo Asiento\": \"ECONOMY\",\r\n    \"Precio por persona €\": 561.0,\r\n    \"Fecha Ida\": \"14/04/2025\",\r\n    \"Fecha Vuelta\": \"20/04/2025\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
 					}
 				},
-				"url": "localhost:8080/agency/flights/edit/1"
+				"url": "localhost:8080/agency/flights/edit/5"
 			},
 			"response": []
 		},
@@ -79,7 +65,7 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": "localhost:8080/agency/flights/delete/2"
+				"url": "localhost:8080/agency/flights/delete/1"
 			},
 			"response": []
 		},
@@ -89,7 +75,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/agency/flights?dateFrom=10/02/2025&dateTo=25/11/2025&origin=Madrid&destination=Miami",
+					"raw": "localhost:8080/agency/flights?dateFrom=01/01/2025&dateTo=20/05/2025&origin=Barcelona&destination=Madrid",
 					"host": [
 						"localhost"
 					],
@@ -101,19 +87,19 @@
 					"query": [
 						{
 							"key": "dateFrom",
-							"value": "10/02/2025"
+							"value": "01/01/2025"
 						},
 						{
 							"key": "dateTo",
-							"value": "25/11/2025"
+							"value": "20/05/2025"
 						},
 						{
 							"key": "origin",
-							"value": "Madrid"
+							"value": "Barcelona"
 						},
 						{
 							"key": "destination",
-							"value": "Miami"
+							"value": "Madrid"
 						}
 					]
 				}

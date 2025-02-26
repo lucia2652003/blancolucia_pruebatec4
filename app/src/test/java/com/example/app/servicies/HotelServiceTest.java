@@ -54,7 +54,7 @@ public class HotelServiceTest {
         //Aplicar al servicio
         List<HotelDTO> hotelesDTO = service.mostrarHoteles();
 
-        //Verificaciones
+        //Verificaciones si el hotel del ID 1 tiene los mismos parámetros
         assertThat(hotelesDTO.get(0).getIdHotel()).isEqualTo(1L);
         assertThat(hotelesDTO.get(0).getNombreHotel()).isEqualTo("Artlon");
         assertThat(hotelesDTO.get(0).getCodigoHotel()).isEqualTo("AR-002");
@@ -64,7 +64,6 @@ public class HotelServiceTest {
 
         //Comprobacion del tamaño de la lista
         assertThat(hotelesDTO.size()).isEqualTo(2);
-
 
     }
 }

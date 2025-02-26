@@ -68,13 +68,6 @@ conexión BD donde se realizarán las operaciones CRUD, el mapeo(JPA + Hibernate
 			<scope>test</scope>
 		 </dependency>
 
-		 <!-- Dependencia para Swagger -->
-		 <dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.3.0</version>
-		 </dependency>
-
 		 <!-- Security -->
 		 <dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -121,10 +114,7 @@ conexión BD donde se realizarán las operaciones CRUD, el mapeo(JPA + Hibernate
        # habilitar o no api-docs y swagger-ui
        springdoc.api-docs.enabled = true
        springdoc.swagger-ui.enabled = true
-
-       # url o ruta de swagger-ui
-       springdoc.swagger-ui.path=/doc
-
+   
        #Seguridad en endpoints Usuario y contraseña
        spring.security.user.name=agencia
        spring.security.user.password=1234

@@ -13,9 +13,10 @@ public class ReservaController {
 
     /* Inyección de dependencias */
     @Autowired
-    private IReservaService service;
+    IReservaService service;
 
     //localhost:8080/agency/flight-booking/new
+    //Envio de JSON para creacion
     @PostMapping("/flight-booking/new")
     public ResponseEntity<ReservaDTO> crearReserva(@RequestBody ReservaDTO reservaDTO){
         return ResponseEntity.status(201).body(service.agregarReserva(reservaDTO));

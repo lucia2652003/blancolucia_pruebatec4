@@ -17,18 +17,39 @@ import java.util.List;
 @NoArgsConstructor
 public class HabitacionDTO {
 
-    /*Nos crean constructores, getters y setters, y asi hacemos limpieza del código*/
+    /*Crea constructores, getters y setters, y asi hacemos limpieza del código*/
 
+    @JsonProperty("idHabitacion")
     private Long id;
 
     @JsonBackReference("hotel-habitacion")
-    @JsonProperty("hotel")
+    @JsonProperty("hotelId")
     private HotelDTO hotel;
+
+    /*
+    * Hace referencia en JSON
+    * "hotelId":{
+    *     "codHotel" : 1,
+    *     "CDHotel": ...,
+    *     "Nombre" : ...,
+    *     "Habitaciones": []
+    * }
+    * */
 
     @JsonBackReference("empleado-habitacion")
     @JsonProperty("empleadoId")
     private EmpleadoDTO empleado;
 
+    /*
+     * Hace referencia en JSON
+     * "empleadoId":{
+     *     "codEmpleado" : 1,
+     *     "Nombre" : ...,
+     *     "primerNombre": ...
+     * }
+     * */
+
+    //Darle formato a las fechas
     @JsonProperty("Fecha Quedada")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate fechaInicio;
@@ -43,7 +64,7 @@ public class HabitacionDTO {
     @JsonProperty("Precio Habit. €")
     private Double precio;
 
-    //Estos dos parámetros es para demos los IDS de las entidades asociadas
+    //Estos dos parámetros son para demostrar los IDS de las entidades asociadas en JSON
 
     @JsonProperty("hotel_asociado")
     private String nombreHotel;

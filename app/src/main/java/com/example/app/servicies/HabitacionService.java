@@ -52,7 +52,7 @@ public class HabitacionService implements IHabitacionService{
     }
 
     @Override
-    public List<HabitacionDTO> verHabitacionesDispo(LocalDate fechaDesde, LocalDate fechaHasta, String lugar) {
+    public List<HabitacionDTO> verHabitacionesDisp(LocalDate fechaDesde, LocalDate fechaHasta, String lugar) {
 
         //Buscar las habitaciones de dichos hoteles que se encuentran en ese lugar
         List<HabitacionDTO> hotelLugar = this.mostrarHabitaciones().stream().filter(habitacionDTO ->
@@ -60,31 +60,40 @@ public class HabitacionService implements IHabitacionService{
                 .toList();
 
         //Buscarlos de ese rango de fechas de habitaciones
+        // Desde Hoteles de ese destino con fechas posteriores a fecha de inicio es posterior a la fecha de quedada
+        // y anterior a la fecha de salida
         return hotelLugar.stream()
-                .filter(habitacion -> !(fechaDesde.isAfter(habitacion.getFechaFin()) || fechaHasta.isBefore(habitacion.getFechaInicio())))
+                .filter(habitacion ->
+                        (fechaDesde.isBefore(habitacion.getFechaInicio()) && fechaHasta.isAfter(habitacion.getFechaFin())))
                 .collect(Collectors.toList());
     }
 
+    /*Para evitar que en Postman nos muestre [] le mandamos un ResponseEntity
+     tanto en mostrar como en eliminar muestra los disponibles*/
     @Override
     public ResponseEntity verificacionListado(List<HabitacionDTO> listado) {
-        if(listado.isEmpty()) return ResponseEntity.status(200).body("No hay habitaciones disponibles");
+        if(listado.isEmpty()) return ResponseEntity.status(200).body("No hay habitaciones disponibles: "+listado.size());
         else return ResponseEntity.ok(listado);//Nos muestra como OK
     }
-
 
     @Override
     public EmpleadoDTO habitacionEmpleados(Habitacion habitacion) {
         if(habitacion.getEmpleado().getHabitaciones() == null){
             return new EmpleadoDTO(habitacion.getEmpleado().getId_empleado(), null, null, null, null);
+        } else {
+            return new EmpleadoDTO(habitacion.getEmpleado().getId_empleado(), habitacion.getEmpleado().getNombre(),
+                    habitacion.getEmpleado().getApellido(), null, null);
         }
-        else return new EmpleadoDTO(habitacion.getEmpleado().getId_empleado(), habitacion.getEmpleado().getNombre(), habitacion.getEmpleado().getApellido(), null, null);
     }
 
     @Override
     public HotelDTO habitacionHotel(Habitacion habitacion) {
         if(habitacion.getHotel().getHabitaciones() == null){
             return new HotelDTO(habitacion.getHotel().getId_hotel(), null, null, null, null);
-        }else return new HotelDTO(habitacion.getHotel().getId_hotel(), habitacion.getHotel().getCod_hotel(), habitacion.getHotel().getNombre(), habitacion.getHotel().getLugar(), null);
+        }else{
+            return new HotelDTO(habitacion.getHotel().getId_hotel(), habitacion.getHotel().getCod_hotel(),
+                    habitacion.getHotel().getNombre(), habitacion.getHotel().getLugar(), null);
+        }
     }
 
     @Override

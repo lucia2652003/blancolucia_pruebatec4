@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class EmpleadoDTO {
 
-    /*Nos crean constructores, getters y setters, y asi hacemos limpieza del código*/
+    /*Crea constructores, getters y setters, y asi hacemos limpieza del código*/
 
     //Establecer el nombre de los JSON {"codEmpleado" : valor, "nombre": , "primerNombre":  }
     @JsonProperty("codEmpleado")

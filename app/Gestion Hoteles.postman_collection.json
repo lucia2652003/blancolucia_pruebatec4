@@ -38,7 +38,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "localhost:8080/agency/hotels/4"
+				"url": "localhost:8080/agency/hotels/1"
 			},
 			"response": []
 		},
@@ -49,7 +49,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"Nombre\": \"Piolot\",\r\n    \"Lugar\": \"Buenos Aires\"\r\n}",
+					"raw": "{\r\n    \"Nombre\": \"Atlantis Resort\",\r\n    \"Lugar\": \"Barcelona\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -63,16 +63,9 @@
 		{
 			"name": "Eliminacion Hotel",
 			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": {
-						"password": "1234",
-						"username": "agencia"
-					}
-				},
 				"method": "DELETE",
 				"header": [],
-				"url": "localhost:8080/agency/hotels/delete/7"
+				"url": "localhost:8080/agency/hotels/delete/5"
 			},
 			"response": []
 		}
