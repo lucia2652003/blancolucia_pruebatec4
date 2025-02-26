@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+//Establecemos como controlador y escucha las peticiones y creamos los endpoint
 @RestController
 @RequestMapping("/agency")
 public class ReservaController {
 
+    /* Inyección de dependencias */
     @Autowired
     private IReservaService service;
 

@@ -16,9 +16,9 @@ import java.util.Optional;
 @Service
 public class ReservaService implements IReservaService{
 
+    /*Inyección de dependencias*/
     @Autowired
     private IReservaRepository repository;
-
 
     @Override
     public List<ReservaDTO> todasReservas() {
@@ -37,16 +37,8 @@ public class ReservaService implements IReservaService{
 
     @Override
     public ReservaDTO agregarReserva(ReservaDTO reservaDTO) {
-        List<ReservaDTO> todos = this.todasReservas();
-
-        //Si hay ids que existe en la DB
-        Optional<ReservaDTO> existe = todos.stream().filter(reservaDTO1 ->
-                        reservaDTO1.getPasajero().getIdentificadorEmpleado().equals(reservaDTO.getPasajero().getIdentificadorEmpleado()) &&
-                                reservaDTO1.getVuelo().getIdentifiVuelo().equals(reservaDTO.getVuelo().getIdentifiVuelo()))
-                .findFirst();
-
-
-        if(existe.isPresent()) return new ReservaDTO();
+        //Se cancela la reserva cuando los ids se han idénticos, empleado y hotel
+        if(this.existeReserva(reservaDTO).isPresent()) return new ReservaDTO();
         else{
             Reserva reserva = this.conversorEntidad(reservaDTO);
             Reserva creado = repository.save(reserva);
@@ -56,10 +48,18 @@ public class ReservaService implements IReservaService{
     }
 
     @Override
+    public Optional<ReservaDTO> existeReserva(ReservaDTO reservaDTO) {
+        return this.todasReservas().stream().filter(reservaDTO1 ->
+                                reservaDTO1.getPasajero().getIdentificadorEmpleado().equals(reservaDTO.getPasajero().getIdentificadorEmpleado()) &&
+                                        reservaDTO1.getVuelo().getIdentifiVuelo().equals(reservaDTO.getVuelo().getIdentifiVuelo()))
+                        .findFirst();
+    }
+
+    @Override
     public EmpleadoDTO existeEmpleado(Reserva reserva) {
-        if(reserva.getEmpleado().getReservas() == null) {
+        if(reserva.getEmpleado().getReservas() == null) {//Si no presenta la reserva lo crea
             return new EmpleadoDTO(reserva.getEmpleado().getId_empleado(), null , null, null, null);
-        }else {
+        }else {//Lo encuentra
             return new EmpleadoDTO(reserva.getEmpleado().getId_empleado(), reserva.getEmpleado().getNombre() , reserva.getEmpleado().getApellido(), null, null);
         }
     }
@@ -83,12 +83,13 @@ public class ReservaService implements IReservaService{
         String codVuelo = reserva.getVuelo().getCod_vuelo() == null ? vueloDTO.getIdentifiVuelo().toString() : reserva.getVuelo().getCod_vuelo();
         String nombre = reserva.getEmpleado().getNombre() == null ? empleadoDTO.getIdentificadorEmpleado().toString() : reserva.getEmpleado().getNombre();
 
+        //Mostrarlo en el resultado JSON
         return new ReservaDTO(reserva.getId_reserva(), vueloDTO, empleadoDTO, codVuelo,nombre);
     }
 
     @Override
     public Reserva conversorEntidad(ReservaDTO reservaDTO) {
-
+        //Podamos hacer las operaciones CRUD
         Empleado empleado = new Empleado(reservaDTO.getPasajero().getIdentificadorEmpleado(), null, null, null, null);
         Vuelo vuelo = new Vuelo(reservaDTO.getVuelo().getIdentifiVuelo(), reservaDTO.getVuelo().getCodigoVuelo(), reservaDTO.getVuelo().getLugarDesde(), reservaDTO.getVuelo().getLugarHasta(), reservaDTO.getVuelo().getAsiento(), reservaDTO.getVuelo().getPrecioVuelo(), reservaDTO.getVuelo().getFechaIda(), reservaDTO.getVuelo().getFechaVuelta(), null);
 

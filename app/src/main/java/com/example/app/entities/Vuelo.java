@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class Vuelo {
+    /*Nos @Data crean constructores, getters y setters, y asi hacemos limpieza del código*/
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,6 +47,13 @@ public class Vuelo {
     @Column(nullable = false)
     private LocalDate fecha_vuelta;
 
+
+    //Un vuelo presenta varias reservas (1:N)
+    /*
+     * mappedBy mapea en la misma tabla @Entity
+     * cascade: permita la actualización en cascada
+     * Un hotel presenta varias habitaciones
+     */
     @JsonManagedReference
     @OneToMany(mappedBy = "vuelo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Reserva> reservas;

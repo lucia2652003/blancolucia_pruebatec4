@@ -143,6 +143,7 @@ public class VueloService implements IVueloService{
 
     @Override
     public Vuelo conversorEntidad(VueloDTO vueloDTO) {
+        //OPERACIONES CRUD
         return new Vuelo(vueloDTO.getIdentifiVuelo(),
                 vueloDTO.getCodigoVuelo(),
                 vueloDTO.getLugarDesde(),

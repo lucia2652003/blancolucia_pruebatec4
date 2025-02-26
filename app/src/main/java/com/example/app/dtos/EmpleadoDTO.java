@@ -1,6 +1,5 @@
 package com.example.app.dtos;
 
-import com.example.app.entities.Habitacion;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -14,6 +13,9 @@ import java.util.List;
 @NoArgsConstructor
 public class EmpleadoDTO {
 
+    /*Nos crean constructores, getters y setters, y asi hacemos limpieza del código*/
+
+    //Establecer el nombre de los JSON {"codEmpleado" : valor, "nombre": , "primerNombre":  }
     @JsonProperty("codEmpleado")
     private Long identificadorEmpleado;
 
@@ -21,6 +23,7 @@ public class EmpleadoDTO {
 
     private String primerNombre;
 
+    //Se hace las relaciones se nombra para evitar errores
     @JsonManagedReference("empleado-reserva")
     @JsonProperty("reservasAvion")
     private List<ReservaDTO> reservas;

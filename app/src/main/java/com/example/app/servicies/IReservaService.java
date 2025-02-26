@@ -6,6 +6,7 @@ import com.example.app.dtos.VueloDTO;
 import com.example.app.entities.Reserva;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IReservaService {
 
@@ -17,6 +18,9 @@ public interface IReservaService {
 
     //Añadir reservas
     ReservaDTO agregarReserva(ReservaDTO reservaDTO);
+
+    //Existe la reserva
+    Optional<ReservaDTO> existeReserva(ReservaDTO reservaDTO);
 
     //Verificar si el empleado presenta reservas
     EmpleadoDTO existeEmpleado(Reserva reserva);

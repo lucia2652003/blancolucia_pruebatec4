@@ -13,6 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 public class HotelDTO {
 
+    /*Nos crean constructores, getters y setters, y asi hacemos limpieza del código*/
+
     @JsonProperty("codHotel")
     private Long idHotel;
 
@@ -25,6 +27,7 @@ public class HotelDTO {
     @JsonProperty("Lugar")
     private String lugar;
 
+    //Relacion 1:N un hotel tiene varias habitaciones
     @JsonManagedReference("hotel-habitacion")
     @JsonProperty("Habitaciones")
     private List<HabitacionDTO> habitaciones;

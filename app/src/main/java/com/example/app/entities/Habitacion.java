@@ -13,6 +13,8 @@ import java.time.LocalDate;
 @Entity
 public class Habitacion {
 
+    /*Nos crean constructores, getters y setters, y asi hacemos limpieza del código*/
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_habitacion;
@@ -37,6 +39,9 @@ public class Habitacion {
 
     @Column(nullable = false)
     private Double precioHabit;
+
+    //La habitación es asignada por único empleado y hotel
+    //Relación 1:N
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)

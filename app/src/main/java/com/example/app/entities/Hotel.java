@@ -14,6 +14,8 @@ import java.util.List;
 @Entity
 public class Hotel {
 
+    /*Nos crean constructores, getters y setters, y asi hacemos limpieza del código*/
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_hotel;
@@ -27,7 +29,16 @@ public class Hotel {
     @Column(nullable = false)
     private String lugar;
 
+    /*
+     * Relación 1:N
+     * mappedBy mapea en la misma tabla @Entity
+     * cascade: permita la actualización en cascada
+     * Un hotel presenta varias habitaciones
+     */
+
     @JsonManagedReference
-    @OneToMany(mappedBy = "hotel", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "hotel",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
     private List<Habitacion> habitaciones;
 }

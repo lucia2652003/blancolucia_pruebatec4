@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+//Establecemos como controlador y escucha las peticiones y creamos los endpoint
 @RestController
 @RequestMapping("/agency/hotels")
 public class HotelController {
 
+    /* Inyección de dependencias */
     @Autowired
     private IHotelService service;
 

@@ -44,7 +44,7 @@ public class HotelService implements IHotelService{
                 .filter(hotel1 -> hotel1.getCod_hotel().equals(hotelDTO.getCodigoHotel()))
                 .findFirst();
 
-        if(existe.isPresent()) return new HotelDTO();
+        if(existe.isPresent()) return new HotelDTO(); //Ya existe en BD
         else {
             Hotel hotel = this.conversorEntidad(hotelDTO);
             Hotel guardado = repository.save(hotel);
@@ -58,14 +58,14 @@ public class HotelService implements IHotelService{
 
         if(encontrado.isPresent()){
             return this.conversotDTO(encontrado.get());
-        }else return new HotelDTO();
+        }else return new HotelDTO(); //No existe
     }
 
     @Override
     public HotelDTO modificarHotel(Long id, HotelDTO entidad) {
         Optional<Hotel> existe = repository.findById(id);
 
-        if(existe.isPresent()){
+        if(existe.isPresent()){//Encuentra actualizamos todos los datos y luego lo actualizamos en BD
             Hotel encontrado = existe.get();
 
             encontrado.setNombre(entidad.getNombreHotel());
@@ -74,7 +74,7 @@ public class HotelService implements IHotelService{
             Hotel actualizado = repository.save(encontrado);
             return  this.conversotDTO(actualizado);
         }
-        else return new HotelDTO();
+        else return new HotelDTO();//No existe
     }
 
     @Override

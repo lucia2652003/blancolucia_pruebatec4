@@ -17,6 +17,8 @@ import java.util.List;
 @NoArgsConstructor
 public class HabitacionDTO {
 
+    /*Nos crean constructores, getters y setters, y asi hacemos limpieza del código*/
+
     private Long id;
 
     @JsonBackReference("hotel-habitacion")
@@ -40,6 +42,8 @@ public class HabitacionDTO {
 
     @JsonProperty("Precio Habit. €")
     private Double precio;
+
+    //Estos dos parámetros es para demos los IDS de las entidades asociadas
 
     @JsonProperty("hotel_asociado")
     private String nombreHotel;

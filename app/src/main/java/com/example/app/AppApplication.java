@@ -13,6 +13,7 @@ public class AppApplication {
 		SpringApplication.run(AppApplication.class, args);
 	}
 
+	//Si ponemos localhost:8080/doc nos mostrará los endpoint
 	@Bean
 	public OpenAPI customAPI(){
 		return new OpenAPI().info(new Info()

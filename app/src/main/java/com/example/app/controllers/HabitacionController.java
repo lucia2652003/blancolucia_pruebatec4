@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
+//Establecemos como controlador y escucha las peticiones y creamos los endpoint
 @RestController
-@RequestMapping("/agency")
+@RequestMapping("/agency")//Definimos el prefijo
 public class HabitacionController {
 
+    /* Inyección de dependencias */
     @Autowired
     private IHabitacionService service;
 

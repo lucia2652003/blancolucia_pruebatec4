@@ -34,8 +34,8 @@ public class HabitacionService implements IHabitacionService{
     @Override
     public HabitacionDTO crearHabitacion(HabitacionDTO habitacionDTO) {
         if(this.existeUsuario(habitacionDTO).isPresent()){
-            return new HabitacionDTO();
-        }else{
+            return new HabitacionDTO();//Ya existe BD
+        }else{//Crea la reserva del hotel
             Habitacion nuevo = this.conversorEntidad(habitacionDTO);
             Habitacion creado = repository.save(nuevo);
             return this.conversorDTO(creado);
@@ -45,8 +45,9 @@ public class HabitacionService implements IHabitacionService{
     @Override
     public Optional<HabitacionDTO> existeUsuario(HabitacionDTO habitacionDTO) {
         return this.mostrarHabitaciones().stream()
-                .filter(habitacionDTO1 -> habitacionDTO1.getHotel().getIdHotel().equals(habitacionDTO.getHotel().getIdHotel())
-                && habitacionDTO1.getEmpleado().getIdentificadorEmpleado().equals(habitacionDTO.getEmpleado().getIdentificadorEmpleado()))
+                .filter(habitacionDTO1 ->
+                        habitacionDTO1.getHotel().getIdHotel().equals(habitacionDTO.getHotel().getIdHotel()) &&
+                                habitacionDTO1.getEmpleado().getIdentificadorEmpleado().equals(habitacionDTO.getEmpleado().getIdentificadorEmpleado()))
                 .findFirst();
     }
 
@@ -66,10 +67,8 @@ public class HabitacionService implements IHabitacionService{
 
     @Override
     public ResponseEntity verificacionListado(List<HabitacionDTO> listado) {
-        if(listado.isEmpty()) return ResponseEntity.status(500).body("No hay habitaciones disponibles");
-        else{
-            return ResponseEntity.ok(listado);
-        }
+        if(listado.isEmpty()) return ResponseEntity.status(200).body("No hay habitaciones disponibles");
+        else return ResponseEntity.ok(listado);//Nos muestra como OK
     }
 
 
@@ -113,6 +112,7 @@ public class HabitacionService implements IHabitacionService{
 
     @Override
     public Habitacion conversorEntidad(HabitacionDTO habitacionDTO) {
+        //OPERACIONES CRUD
         Empleado empleado = new Empleado(habitacionDTO.getEmpleado().getIdentificadorEmpleado(), null, null, null, null);
         Hotel hotel = new Hotel(habitacionDTO.getHotel().getIdHotel(), null,  null, null, null);
 

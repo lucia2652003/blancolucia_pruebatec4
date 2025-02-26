@@ -12,10 +12,11 @@ public interface IHotelService {
     //Listar Hoteles
     List<HotelDTO> mostrarHoteles();
 
+    //Verificar si la lista presenta info
     ResponseEntity verListadoRE(List<HotelDTO> listado);
+
     //Agregar un hotel
     HotelDTO agregarHotel(HotelDTO hotelDTO);
-
 
     //Buscar un hotel por ID
     HotelDTO buscarHotel(Long id);
