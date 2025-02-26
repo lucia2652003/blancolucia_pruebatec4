@@ -20,7 +20,7 @@ conexión BD donde se realizarán las operaciones CRUD, el mapeo(JPA + Hibernate
    Una vez hecho lo ejecutas pinchando en el icono del primer rayo :zap: que veas. Refresca
    DB que se encuentra en '**SCHEMAS**' pinchando en lado derecho :arrows_counterclockwise:.
  
-5. Comprobar las tablas empleado **SELECT bd.tabla_nombre;**
+5. Comprobar las tablas **SELECT bd.tabla_nombre;**
 
 6. Abrimos IntellijIDE verificamos si tenemos el JDK 17 File > Project Structure. Si no lo presentas 
    ninguna los instalas.
