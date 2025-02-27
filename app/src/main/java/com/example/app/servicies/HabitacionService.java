@@ -53,16 +53,15 @@ public class HabitacionService implements IHabitacionService{
     @Override
     public List<HabitacionDTO> verHabitacionesDisp(LocalDate fechaDesde, LocalDate fechaHasta, String lugar) {
 
-      /*  //Buscar las habitaciones de dichos hoteles que se encuentran en ese lugar
+       //Buscar las habitaciones de dichos hoteles que se encuentran en ese lugar
         List<HabitacionDTO> hotelLugar = this.mostrarHabitaciones().stream().filter(habitacionDTO ->
                         habitacionDTO.getHotel().getLugar().equalsIgnoreCase(lugar))
-                .toList();*/
+                .toList();
 
         //Buscarlos de ese rango de fechas de habitaciones
         // Desde Hoteles de ese destino con fechas posteriores a fecha de inicio es posterior a la fecha de quedada
         // y anterior a la fecha de salida
-        return this.mostrarHabitaciones().stream()
-                .filter(habitDestino-> habitDestino.getHotel().getLugar().equalsIgnoreCase(lugar))
+        return hotelLugar.stream()
                 .filter(habitacion ->
                         (fechaDesde.isBefore(habitacion.getFechaInicio()) && fechaHasta.isAfter(habitacion.getFechaFin())))
                 .collect(Collectors.toList());
