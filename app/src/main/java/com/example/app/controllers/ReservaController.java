@@ -16,7 +16,7 @@ public class ReservaController {
     IReservaService service;
 
     //localhost:8080/agency/flight-booking/new
-    //Envio de JSON para creacion
+    //Creación de una reserva a traves de un JSON
     @PostMapping("/flight-booking/new")
     public ResponseEntity<ReservaDTO> crearReserva(@RequestBody ReservaDTO reservaDTO){
         return ResponseEntity.status(201).body(service.agregarReserva(reservaDTO));

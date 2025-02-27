@@ -3,7 +3,6 @@ package com.example.app.servicies;
 import com.example.app.dtos.EmpleadoDTO;
 import com.example.app.dtos.HabitacionDTO;
 import com.example.app.dtos.HotelDTO;
-import com.example.app.dtos.ReservaDTO;
 import com.example.app.entities.Empleado;
 import com.example.app.entities.Habitacion;
 import com.example.app.entities.Hotel;
@@ -33,7 +32,7 @@ public class HabitacionService implements IHabitacionService{
 
     @Override
     public HabitacionDTO crearHabitacion(HabitacionDTO habitacionDTO) {
-        if(this.existeUsuario(habitacionDTO).isPresent()){
+        if(this.existeHabitacion(habitacionDTO).isPresent()){
             return new HabitacionDTO();//Ya existe BD
         }else{//Crea la reserva del hotel
             Habitacion nuevo = this.conversorEntidad(habitacionDTO);
@@ -43,26 +42,27 @@ public class HabitacionService implements IHabitacionService{
     }
 
     @Override
-    public Optional<HabitacionDTO> existeUsuario(HabitacionDTO habitacionDTO) {
+    public Optional<HabitacionDTO> existeHabitacion(HabitacionDTO habitacionDTO) {
         return this.mostrarHabitaciones().stream()
                 .filter(habitacionDTO1 ->
                         habitacionDTO1.getHotel().getIdHotel().equals(habitacionDTO.getHotel().getIdHotel()) &&
-                                habitacionDTO1.getEmpleado().getIdentificadorEmpleado().equals(habitacionDTO.getEmpleado().getIdentificadorEmpleado()))
+                                habitacionDTO1.getEmpleado().getIdentEmpleado().equals(habitacionDTO.getEmpleado().getIdentEmpleado()))
                 .findFirst();
     }
 
     @Override
     public List<HabitacionDTO> verHabitacionesDisp(LocalDate fechaDesde, LocalDate fechaHasta, String lugar) {
 
-        //Buscar las habitaciones de dichos hoteles que se encuentran en ese lugar
+      /*  //Buscar las habitaciones de dichos hoteles que se encuentran en ese lugar
         List<HabitacionDTO> hotelLugar = this.mostrarHabitaciones().stream().filter(habitacionDTO ->
                         habitacionDTO.getHotel().getLugar().equalsIgnoreCase(lugar))
-                .toList();
+                .toList();*/
 
         //Buscarlos de ese rango de fechas de habitaciones
         // Desde Hoteles de ese destino con fechas posteriores a fecha de inicio es posterior a la fecha de quedada
         // y anterior a la fecha de salida
-        return hotelLugar.stream()
+        return this.mostrarHabitaciones().stream()
+                .filter(habitDestino-> habitDestino.getHotel().getLugar().equalsIgnoreCase(lugar))
                 .filter(habitacion ->
                         (fechaDesde.isBefore(habitacion.getFechaInicio()) && fechaHasta.isAfter(habitacion.getFechaFin())))
                 .collect(Collectors.toList());
@@ -78,9 +78,9 @@ public class HabitacionService implements IHabitacionService{
 
     @Override
     public EmpleadoDTO habitacionEmpleados(Habitacion habitacion) {
-        if(habitacion.getEmpleado().getHabitaciones() == null){
+        if(habitacion.getEmpleado().getHabitaciones() == null){//Si no lo encuentra
             return new EmpleadoDTO(habitacion.getEmpleado().getId_empleado(), null, null, null, null);
-        } else {
+        } else {//Lo busca
             return new EmpleadoDTO(habitacion.getEmpleado().getId_empleado(), habitacion.getEmpleado().getNombre(),
                     habitacion.getEmpleado().getApellido(), null, null);
         }
@@ -88,9 +88,9 @@ public class HabitacionService implements IHabitacionService{
 
     @Override
     public HotelDTO habitacionHotel(Habitacion habitacion) {
-        if(habitacion.getHotel().getHabitaciones() == null){
+        if(habitacion.getHotel().getHabitaciones() == null){//Si no lo encuentra lo crea
             return new HotelDTO(habitacion.getHotel().getId_hotel(), null, null, null, null);
-        }else{
+        }else{//Lo busca
             return new HotelDTO(habitacion.getHotel().getId_hotel(), habitacion.getHotel().getCod_hotel(),
                     habitacion.getHotel().getNombre(), habitacion.getHotel().getLugar(), null);
         }
@@ -122,7 +122,7 @@ public class HabitacionService implements IHabitacionService{
     @Override
     public Habitacion conversorEntidad(HabitacionDTO habitacionDTO) {
         //OPERACIONES CRUD
-        Empleado empleado = new Empleado(habitacionDTO.getEmpleado().getIdentificadorEmpleado(), null, null, null, null);
+        Empleado empleado = new Empleado(habitacionDTO.getEmpleado().getIdentEmpleado(), null, null, null, null);
         Hotel hotel = new Hotel(habitacionDTO.getHotel().getIdHotel(), null,  null, null, null);
 
         return new Habitacion(habitacionDTO.getId(), habitacionDTO.getFechaInicio(),

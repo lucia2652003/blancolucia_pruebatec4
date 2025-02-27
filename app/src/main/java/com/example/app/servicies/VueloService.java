@@ -30,7 +30,7 @@ public class VueloService implements IVueloService{
 
     @Override
     public List<VueloDTO> verVuelosDisponibles(LocalDate fechaInicio, LocalDate fechaFin, String origen, String destino) {
-        //Si quitamos los parámetros de la query no muestra todos los vuelo
+        //Si quitamos los parámetros de la query no muestra todos los vuelos
         if(fechaInicio == null && fechaFin == null && origen == null && destino == null) return this.mostrarTVuelos();
         else return this.filtroVuelos(fechaInicio, fechaFin, origen, destino);
     }
@@ -138,7 +138,7 @@ public class VueloService implements IVueloService{
     @Override
     public Vuelo conversorEntidad(VueloDTO vueloDTO) {
         //OPERACIONES CRUD
-        return new Vuelo(vueloDTO.getIdentifiVuelo(),
+        return new Vuelo(vueloDTO.getIdVuelo(),
                 vueloDTO.getCodigoVuelo(),
                 vueloDTO.getLugarDesde(),
                 vueloDTO.getLugarHasta(),

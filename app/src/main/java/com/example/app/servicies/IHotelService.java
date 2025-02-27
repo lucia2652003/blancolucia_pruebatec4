@@ -28,7 +28,7 @@ public interface IHotelService {
     List<HotelDTO> eliminarHotel(Long id);
 
     //conversores
-    HotelDTO conversotDTO(Hotel hotel);
+    HotelDTO conversorDTO(Hotel hotel);
     Hotel conversorEntidad(HotelDTO hotelDTO);
 
 }

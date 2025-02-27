@@ -17,7 +17,7 @@ public class EmpleadoDTO {
 
     //Establecer el nombre de los JSON {"codEmpleado" : valor, "nombre": , "primerNombre":  }
     @JsonProperty("codEmpleado")
-    private Long identificadorEmpleado;
+    private Long identEmpleado;
 
     private String nombre;
 

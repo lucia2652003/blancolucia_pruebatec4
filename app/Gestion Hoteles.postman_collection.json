@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "99d16f5c-904b-4194-83f9-f8f536fa3c71",
+		"_postman_id": "29434b61-63a0-456c-a0a2-20a18fe948e4",
 		"name": "Gestion Hoteles",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "41654976"
@@ -65,7 +65,7 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": "localhost:8080/agency/hotels/delete/5"
+				"url": "localhost:8080/agency/hotels/delete/1"
 			},
 			"response": []
 		}

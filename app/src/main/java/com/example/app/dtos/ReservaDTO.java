@@ -53,7 +53,7 @@ public class ReservaDTO {
 
     //Estos dos parámetros son para demostrar los IDS de las entidades asociadas
 
-    @JsonProperty("Cod_Vuelo")
+    @JsonProperty("Cod Vuelo")
     private String vuelo_asociado;
 
     @JsonProperty("Pasajero")

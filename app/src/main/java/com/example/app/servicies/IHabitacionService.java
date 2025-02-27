@@ -12,19 +12,19 @@ import java.util.Optional;
 
 public interface IHabitacionService {
 
-    //Mostrar habitaciones
+    //Mostrar todas las habitaciones
     List<HabitacionDTO> mostrarHabitaciones();
 
     //Crea reserva habitacion
     HabitacionDTO crearHabitacion(HabitacionDTO habitacionDTO);
 
-    //Validaciones para la creacion de la reserva de hotel
-    Optional<HabitacionDTO> existeUsuario(HabitacionDTO habitacionDTO);
+    //Validaciones si existe la habitacion
+    Optional<HabitacionDTO> existeHabitacion(HabitacionDTO habitacionDTO);
 
-    //Buscar habitaciones disponibles
+    //Buscar habitaciones disponibles con los parámetros requeridos
     List<HabitacionDTO> verHabitacionesDisp(LocalDate fechaDesde, LocalDate fechaHasta, String lugar);
 
-    //Respuesta del listado Habitaciones
+    //Verificacion del listado de las habitaciones disponibles
     ResponseEntity verificacionListado(List<HabitacionDTO> listado);
 
     //Comprobacion de reservas de habitaciones

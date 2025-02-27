@@ -13,9 +13,6 @@ public interface IReservaService {
     //Sacar todas las reservas
     List<ReservaDTO> todasReservas();
 
-    //Buscar ReservaDTO
-    ReservaDTO buscarReservas(Long id);
-
     //Añadir reservas
     ReservaDTO agregarReserva(ReservaDTO reservaDTO);
 
@@ -23,10 +20,10 @@ public interface IReservaService {
     Optional<ReservaDTO> existeReserva(ReservaDTO reservaDTO);
 
     //Verificar si el empleado presenta reservas
-    EmpleadoDTO existeEmpleado(Reserva reserva);
+    EmpleadoDTO reservasEmpleado(Reserva reserva);
 
     //Verificar si el vuelo presenta reservas
-    VueloDTO existeVueloReservas(Reserva reserva);
+    VueloDTO reservasVuelo(Reserva reserva);
 
     //conversor
     ReservaDTO conversorDTO(Reserva reserva);

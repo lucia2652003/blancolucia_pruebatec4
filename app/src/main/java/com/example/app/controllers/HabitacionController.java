@@ -27,7 +27,7 @@ public class HabitacionController {
     }
 
     //localhost:8080/agency/rooms?dateFrom=01/01/2025&dateTo=14/04/2025&destination=Barcelona
-    //Obtener info habitaciones
+    //Obtener info de las habitaciones disponibles con parámetros obligatorios
     @GetMapping("/rooms")
     public ResponseEntity<List<HabitacionDTO>> mostrarHabitacionesDisp(@RequestParam(name = "dateFrom") @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate fechaDesde,
                                                                        @RequestParam(name = "dateTo") @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate fechaHasta,

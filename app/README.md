@@ -1,6 +1,6 @@
 ## **Prueba Técnica Gestión Agencia**
 
-En este proyecto se realizará una API REST donde se consulten las gestiones de los hoteles en donde presenta 
+En este proyecto se realizará una API REST donde se consulten las gestiones de los hoteles, en cada hotel presenta 
 unas habitaciones disponibles para los empleados y por el otro lado
 las reservas de vuelos. Emplearemos el framework **Spring** donde se realizarán la seguridad, documentación (Swagger), 
 conexión BD donde se realizarán las operaciones CRUD, el mapeo(JPA + Hibernate) y pruebas unitarias (JUnit).
@@ -15,9 +15,9 @@ conexión BD donde se realizarán las operaciones CRUD, el mapeo(JPA + Hibernate
 
 2. **Encender el XAMPP**: Enciende MySQL y Apache (Start 'Empezar') y Admin.
  
-3. Encender el **Workbench** (si no le presentáis lo instaláis).
+3. Encender el **Workbench** (si no le tienes lo instalas).
  
-4. **DB (Base de datos)**: Coge el script **agencia.sql** que esta en la raíz del proyecto y lo abres en Workbench.
+4. **DB (Base de datos)**: Coge el script **agencia.sql** que está en la raíz del proyecto y lo abres en Workbench.
    Una vez hecho lo ejecutas pinchando en el icono del primer rayo :zap: que veas. Refresca
    DB que se encuentra en '**SCHEMAS**' pinchando en lado derecho :arrows_counterclockwise:.
  
@@ -143,12 +143,13 @@ El proyecto se dividió en unos directorios que se encuentra en
   Asi podemos para acceder la página web más segura. En este caso no le damos autenticación a los endpoints de listar.
   Ni en la URL de documentación.
   
- * controllers *@RestController*: Donde se reciba las peticiones HTTP, con el servicio específico y devolver las 
-   respuestas adecuadas para el usuario/cliente. En cada controlador tiene uns endpoints correspondientes comentados, 
-   evitar modificarlos. Y en el @RequestMapping no lo quitéis porque es el prefijo principal de las URL.
+ * controllers *@RestController*: Donde se reciben las peticiones HTTP, con el servicio específico y devolver las 
+   respuestas adecuadas para el usuario/cliente. En cada controlador tiene uns endpoints y métodos correspondientes. 
+   Y en el @RequestMapping no lo quitéis porque es el prefijo principal de las URL.
 
- * dtos: Son plantillas donde las podemos ver en Postman, en ficheros JSON. También los usamos para enviar JSON 
-   y recuperar los datos.
+ * dtos: Son plantillas cuya finalidad es crear objetos planos con los atributos de la tabla correspondiente de la DB 
+   para que puedan ser recuperados y enviados del servidor con solo una invocación. Luego los transforma en JSON como lo vamos a ver 
+   en el Postman.
   
  * entities: Están las plantillas de las tablas de nuestra DB y con Hibernate especificamos los atributos de cada uno.  
    Las anotaciones de Lombok '@' nos ayudan a crear constructores, getters y setters y también para el mapeo de las relaciones '@Json...'.

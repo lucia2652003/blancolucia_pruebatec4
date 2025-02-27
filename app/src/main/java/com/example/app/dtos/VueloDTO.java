@@ -2,7 +2,6 @@ package com.example.app.dtos;
 
 import com.example.app.entities.Vuelo;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -33,7 +32,7 @@ public class VueloDTO {
     * */
 
     @JsonProperty("codVuelo")
-    private Long identifiVuelo;
+    private Long idVuelo;
 
     @JsonProperty("Num_vuelo")
     private String codigoVuelo;
