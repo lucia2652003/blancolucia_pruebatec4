@@ -174,8 +174,8 @@ El proyecto se dividió en unos directorios que se encuentra en
 
 Una vez hecha las conexiones, importaciones de las colecciones y comprobación de datos vamos a encender la API REST pulsando
 yendo al fichero AppApplication y una vez dentro de ese pinchar en la flecha que se encuentra al lado 'Current File' y ejecuta
-puede que al principio nos mande un avise de Lombok abajo a la derecha para continuar hay que aceptarlo y espera porque se
-está realizando la conexión a la DB.
+puede que al principio nos mande un avise de Lombok 'Enable annotation processing' que se encuentra
+abajo a la derecha, hay que aceptarlo y una vez hecha la configuración podemos interactuar.
 
 Una vez hecho vamos al Postman y os explico lo que se hará en cada endpoint, para enviar la petición le damos *SEND*: 
 

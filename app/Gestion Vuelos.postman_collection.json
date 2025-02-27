@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b517049a-7c7c-4823-a67c-7a14609b9340",
+		"_postman_id": "d42fcdc9-6820-4c52-8356-2ba2d662482d",
 		"name": "Gestion Vuelos",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "41654976"
@@ -49,7 +49,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"Origen\": \"Portugal\",\r\n    \"Destino\": \"Madrid\",\r\n    \"Tipo Asiento\": \"ECONOMY\",\r\n    \"Precio por persona €\": 561.0,\r\n    \"Fecha Ida\": \"14/04/2025\",\r\n    \"Fecha Vuelta\": \"20/04/2025\"\r\n}",
+					"raw": "{\r\n    \"Origen\": \"Caracas\",\r\n    \"Destino\": \"Melilla\",\r\n    \"Tipo Asiento\": \"ECONOMY\",\r\n    \"Precio por persona €\": 561.0,\r\n    \"Fecha Ida\": \"14/06/2025\",\r\n    \"Fecha Vuelta\": \"20/06/2025\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
