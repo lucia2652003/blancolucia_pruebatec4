@@ -21,7 +21,7 @@ public class VueloService implements IVueloService{
 
 
     @Override
-    public List<VueloDTO> mostrarVuelos() {
+    public List<VueloDTO> mostrarTVuelos() {
         List<Vuelo> todosVuelos = repository.findAll();
         return todosVuelos.stream()
                 .map(this::conversorDTO)
@@ -30,8 +30,15 @@ public class VueloService implements IVueloService{
 
     @Override
     public List<VueloDTO> verVuelosDisponibles(LocalDate fechaInicio, LocalDate fechaFin, String origen, String destino) {
-        //Nos muestra el listado al igual que comprueba de que los parámetros están vacíos
-        return this.mostrarVuelos().stream()
+        //Si quitamos los parámetros de la query no muestra todos los vuelo
+        if(fechaInicio == null && fechaFin == null && origen == null && destino == null) return this.mostrarTVuelos();
+        else return this.filtroVuelos(fechaInicio, fechaFin, origen, destino);
+    }
+
+    @Override
+    public List<VueloDTO> filtroVuelos(LocalDate fechaInicio, LocalDate fechaFin, String origen, String destino) {
+        //Podemos quitar los diferentes parámetros para mejor filtración, si está un vacío, se realiza filtración de otro
+        return this.mostrarTVuelos().stream()
                 .filter(vuelo -> fechaInicio == null || fechaInicio.isBefore(vuelo.getFechaIda()))
                 .filter(vueloFechaSalida -> fechaFin == null || fechaFin.isAfter(vueloFechaSalida.getFechaVuelta()))
                 .filter(vueloDTO -> origen == null || vueloDTO.getLugarDesde().equalsIgnoreCase(origen))
@@ -45,7 +52,7 @@ public class VueloService implements IVueloService{
     @Override
     public ResponseEntity mostrarListaRE(List<VueloDTO> vuelos) {
         if(vuelos.isEmpty()) return ResponseEntity.status(200).body("No hay vuelos disponibles: "+ vuelos.size());
-        return ResponseEntity.ok(vuelos);
+        else return ResponseEntity.ok(vuelos);
     }
 
     @Override
@@ -69,7 +76,7 @@ public class VueloService implements IVueloService{
     @Override
     public VueloDTO buscarVueloID(Long id) {
         Optional<Vuelo> buscar = repository.findById(id);
-        //Sí lo encuentra pasar DTO para mostrarlo JSON
+        //Sí lo encuentra envia en DTO con sus valores
         if(buscar.isPresent()) return this.conversorDTO(buscar.get());
         else return new VueloDTO();
     }
@@ -81,7 +88,7 @@ public class VueloService implements IVueloService{
         if(existe.isPresent()){
             Vuelo encontrado = existe.get();
 
-            //Nunca debemos modificar el código porque consideramos como parametro única
+            //Nunca modificar el código porque consideramos como parametro única
             encontrado.setOrigen(entidad.getLugarDesde());
             encontrado.setDestino(entidad.getLugarHasta());
             encontrado.setAsiento(entidad.getAsiento());
@@ -97,18 +104,14 @@ public class VueloService implements IVueloService{
 
     @Override
     public List<VueloDTO> eliminarVuelo(Long id) {
+        Optional<Vuelo> existe = repository.findById(id);
 
-        VueloDTO existe = this.buscarVueloID(id);
-
-        // Para darle de baja
-        // Debe existir el vuelo con el ID
-        // Debemos comprobar si no tiene reservas disponibles
-        if(existe == null || !existe.getReservas().isEmpty()){
-            return this.mostrarVuelos();
-        }else { //Le mandamos la lista y vemos que fue eliminado el vuelo
+        //Si existe y no presenta reservas se elimina de la DB y se muestra el listado actualizado
+        if(existe.isPresent() && existe.get().getReservas().isEmpty()){
             repository.deleteById(id);
-            return this.mostrarVuelos();
-        }
+            return this.mostrarTVuelos();
+        }//Pasamos la lista viendo que no se realizó la eliminación porque no existe el vuelo con ese ID o presenta reservas
+        else return this.mostrarTVuelos();
     }
 
     @Override

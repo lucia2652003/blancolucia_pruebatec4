@@ -79,14 +79,14 @@ public class HotelService implements IHotelService{
 
     @Override
     public List<HotelDTO> eliminarHotel(Long id) {
-        HotelDTO existe = this.buscarHotel(id);
+       Optional<Hotel> existe = repository.findById(id);
 
-        // Si me recibo un constructor vacio
-        // Existe el hotel y tiene habitaciones me manda el listado
-        if(existe == null || !existe.getHabitaciones().isEmpty()){
+        // Existe el hotel y no presenta habitaciones lo elimina
+        if(existe.isPresent() && existe.get().getHabitaciones().isEmpty()){
+            repository.deleteById(id);
             return this.mostrarHoteles();
         }else {
-            repository.deleteById(id);
+            //Pasamos la lista viendo que no se realizó la eliminación porque no existe el vuelo con ese ID o tiene reservas
             return this.mostrarHoteles();
         }
 

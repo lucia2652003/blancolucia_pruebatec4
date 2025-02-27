@@ -28,7 +28,7 @@ public class HotelController {
     //localhost:8080/agency/hotels/new
     //Envio de JSON para creacion
     @PostMapping("/new")
-    public ResponseEntity<HotelDTO> agregarHotel(@RequestBody HotelDTO hotelDTO){
+    public ResponseEntity<HotelDTO> altaHotel(@RequestBody HotelDTO hotelDTO){
         return ResponseEntity.status(201).body(service.agregarHotel(hotelDTO));
     }
 
@@ -48,7 +48,7 @@ public class HotelController {
     //localhost:8080/agency/hotels/delete/{id}
     // Eliminar
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<List<HotelDTO>> eliminacionHotel(@PathVariable Long id){
+    public ResponseEntity<List<HotelDTO>> bajaHotel(@PathVariable Long id){
         return service.verListadoRE(service.eliminarHotel(id));
     }
 }

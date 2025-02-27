@@ -10,12 +10,15 @@ import java.util.List;
 public interface IVueloService {
 
     //Sacar todos los vuelos
-    List<VueloDTO> mostrarVuelos();
+    List<VueloDTO> mostrarTVuelos();
 
-    //Mostrar los vuelos disponibles según fecha de ida, vuelta, origen y destino
+    //Ver los vuelos que nos presentan
     List<VueloDTO> verVuelosDisponibles(LocalDate fechaInicio, LocalDate fechaFin, String origen, String destino);
 
-    //Validacion del listado
+    //Ver los vuelos por filtracion
+    List<VueloDTO> filtroVuelos(LocalDate fechaInicio, LocalDate fechaFin, String origen, String destino);
+
+    //Verificacion de la lista
     ResponseEntity mostrarListaRE(List<VueloDTO> vuelos);
 
     //Agregar Vuelo

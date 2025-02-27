@@ -30,76 +30,82 @@ conexión BD donde se realizarán las operaciones CRUD, el mapeo(JPA + Hibernate
 
 8. Comprobar el pom.xml viendo las dependencias que necesitamos JUnit, Security, Hibernate + JPA y MySQL, para desarrollar en la aplicación.
    ````
-     <dependencies>
-		         <!-- Dependencia de Spring Data JPA -->
-		         <dependency>
-			          <groupId>org.springframework.boot</groupId>
-			          <artifactId>spring-boot-starter-data-jpa</artifactId>
-		         </dependency>
+    <dependencies>
+		 <!-- Dependencia de Spring Data JPA -->
+		 <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		 </dependency>
 
-		        <dependency>
-			          <groupId>org.springframework.boot</groupId>
-			          <artifactId>spring-boot-starter-web</artifactId>
-		        </dependency>
+		 <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		 </dependency>
 
-		       <dependency>
-			         <groupId>org.springframework.boot</groupId>
-			         <artifactId>spring-boot-devtools</artifactId>
-			         <scope>runtime</scope>
-			         <optional>true</optional>
-		       </dependency>
+		 <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		 </dependency>
 
-		       <!-- Conector MySQL -->
-		       <dependency>
-			         <groupId>com.mysql</groupId>
-			         <artifactId>mysql-connector-j</artifactId>
-			         <scope>runtime</scope>
-		       </dependency>
+		 <!-- Conector MySQL -->
+		 <dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		 </dependency>
 
-		       <!-- Lombok -->
-		       <dependency>
-			        <groupId>org.projectlombok</groupId>
-			        <artifactId>lombok</artifactId>
-			        <optional>true</optional>
-			        <version>1.18.36</version>
-		       </dependency>
+		 <!-- Lombok -->
+		 <dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+			<version>1.18.36</version>
+		 </dependency>
 
+		 <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		 </dependency>
 
-		       <dependency>
-			        <groupId>org.springframework.boot</groupId>
-			        <artifactId>spring-boot-starter-test</artifactId>
-			        <scope>test</scope>
-		       </dependency>
+		 <!-- Dependencia para Swagger -->
+		 <dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.3.0</version>
+		 </dependency>
 
-		       <!-- Spring Security -->
-		       <dependency>
-			         <groupId>org.springframework.boot</groupId>
-			         <artifactId>spring-boot-starter-security</artifactId>
-		       </dependency>
+		 <!-- Spring Security -->
+		 <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		 </dependency>
 
-		       <dependency>
-			         <groupId>org.springframework.security</groupId>
-			        <artifactId>spring-security-test</artifactId>
-			        <scope>test</scope>
-		       </dependency>
+		 <dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		 </dependency>
 
-		       <!--- JUnit, Mockito y Jupiter Pruebas Unitarias -->
-		       <dependency>
-			       <groupId>org.junit.jupiter</groupId>
-			       <artifactId>junit-jupiter-api</artifactId>
-			       <scope>test</scope>
-		       </dependency>
-		      <dependency>
-			       <groupId>org.mockito</groupId>
-			       <artifactId>mockito-core</artifactId>
-			       <scope>test</scope>
-		      </dependency>
-		      <dependency>
-			            <groupId>org.mockito</groupId>
-            <artifactId>mockito-junit-jupiter</artifactId>
-			           <scope>test</scope>
-		      </dependency> 
-     <dependencies>
+		 <!--- JUnit, Mockito y Jupiter Pruebas Unitarias -->
+		 <dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<scope>test</scope>
+		 </dependency>
+		 <dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		 </dependency>
+		 <dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<scope>test</scope>
+		 </dependency>
+	  </dependencies>
    ````
  
 9. Comprobar las propiedades de la aplicacion **/src/main/resources**. Para nada no lo cambies.
@@ -117,12 +123,15 @@ conexión BD donde se realizarán las operaciones CRUD, el mapeo(JPA + Hibernate
        # habilitar o no api-docs y swagger-ui
        springdoc.api-docs.enabled = true
        springdoc.swagger-ui.enabled = true
+
+       # url o ruta de swagger-ui
+       springdoc.swagger-ui.path=/doc
    
-       #Seguridad en endpoints Usuario y contraseña
+       # Seguridad en endpoints Usuario y contraseña
        spring.security.user.name=agencia
        spring.security.user.password=1234
     `````
-9. Abrir el Postman (si no lo tienes instalaló) y finalmente 
+10. Abrir el Postman (si no lo tienes instalaló) y finalmente 
  importar las colecciones que se encuentran en la raíz (Import > Files > nnnnn.postman_colecction).
 
 ## Estructura de JPA
@@ -131,8 +140,8 @@ El proyecto se dividió en unos directorios que se encuentra en
 **/src/main/java/com.example.app**, para organizar mejorar el código y una mejor limpieza, no elimines las anotaciones:
 
  * config: Esta capa donde le damos autenticación para los usuarios en unos determinados endpoint o rutas (enlaces). 
-  Asi podemos para acceder la página web más segura. En este caso no le damos autenticación a los endpoints de listar,
-  darles de alta, baja o modificación se requiere.
+  Asi podemos para acceder la página web más segura. En este caso no le damos autenticación a los endpoints de listar.
+  Ni en la URL de documentación.
   
  * controllers *@RestController*: Donde se reciba las peticiones HTTP, con el servicio específico y devolver las 
    respuestas adecuadas para el usuario/cliente. En cada controlador tiene uns endpoints correspondientes comentados, 
@@ -153,18 +162,24 @@ El proyecto se dividió en unos directorios que se encuentra en
  * servicies *@Service*: Se aplican las operaciones donde se realizaran las operaciones complejas, 
   validaciones y las operaciones de repositorio.
 
-Después hay un fichero en el directorio **src/test/java/com.example.app/servicies**, 
-donde se realizarán las pruebas unitarias, hacemos la simulación y verificamos si validan correctamente dan positivo y 
-si falla hace esto.
+ * Luego esta AppApplication donde empieza a ejecutar toda la API REST vemos que presenta un método para la presentación cuando ponemos la URL 
+  **localhost:8080/doc** nos mostrará una página con los endpoints de cada controlador
+   con sus métodos correspondientes.
+   
+ Después hay un fichero en el directorio **src/test/java/com.example.app/servicies**, 
+ donde se realizarán las pruebas unitarias, hacemos la simulación y verificamos si validan correctamente dan positivo y 
+ si falla hace esto.
 
 ## ¿Cómo ejecutar?
 
 Una vez hecha las conexiones, importaciones de las colecciones y comprobación de datos vamos a encender la API REST pulsando
-en la pestaña donde se encuentra 'app' al lado de la flecha y lo ejecutamos. 
+yendo al fichero AppApplication y una vez dentro de ese pinchar en la flecha que se encuentra al lado 'Current File' y ejecuta
+puede que al principio nos mande un avise de Lombok abajo a la derecha para continuar hay que aceptarlo y espera porque se
+está realizando la conexión a la DB.
 
-Una vez hecho vamos al Postman y os explico lo que se hará en cada endpoint, para enviar la petición le damos *SEND*:
- 
- * ¡¡¡Aviso!!! En los métodos POST, PUT y DELETE debéis autenticaros para eso vamos al Postman
+Una vez hecho vamos al Postman y os explico lo que se hará en cada endpoint, para enviar la petición le damos *SEND*: 
+
+    ¡¡¡Aviso!!! En los métodos POST, PUT y DELETE debéis autenticaros para eso vamos al Postman
     bajo al método correspondiente 'Authorization > Auth Type: Basic Auth: Username:nnnn Password:nnnn'.
     Si no lo hacemos nos manda el estado *401 Unauthorized*.
 
@@ -179,7 +194,7 @@ Una vez hecho vamos al Postman y os explico lo que se hará en cada endpoint, pa
      
         * **POST**
           
-          * localhost:8080/agency/hotels/new: Crea el hotel en el Postman > Body como un JSON. Los parámetros debe ser iguales a los nombres de 
+          * localhost:8080/agency/hotels/new: Crea el hotel en el Postman > Body > raw como un JSON. Los parámetros debe ser iguales a los nombres de 
             '@JSONProperty' y si no el atributo.
             Verifica que si ese hotel ya existe con ese código hotel envía un constructor vacío e impide la inserción a la DB.
            
@@ -207,10 +222,8 @@ Una vez hecho vamos al Postman y os explico lo que se hará en cada endpoint, pa
 
         * **POST**:
             
-           * localhost:8080/agency/room-booking/new: Crea la habitación en el Postman > Body como un JSON. Los parámetros debe ser iguales a los nombres de
-             '@JSONProperty' y si no lo tiene el nombre de atributo. En este le metemos dos entidades. 
-             Verifica que si esa reserva está asignada en dicho hotel y empleado envía un constructor vacío. De lo contrario, lo inserta y se actualiza tanto DTO como DB.
-             Puedes verlo comprobando la lista.
+           * localhost:8080/agency/room-booking/new: Crea la habitación con un JSON. En este le metemos dos entidades Empleado y Hotel, 
+            además de otros atributos, tienes que fijarte que son los mismos nombre que DTO que corresponde.
           
   3. Gestión de Vuelos
         * **GET**
@@ -221,27 +234,27 @@ Una vez hecho vamos al Postman y os explico lo que se hará en cada endpoint, pa
           * localhost:8080/agency/flights/ID: Buscar un vuelo por ID de la DB, si existe muestra JSON. De lo contrario envía un vacío.
             
           * localhost:8080/agency/flights?dateFrom=01/01/2025&dateTo=20/05/2025&origin=Barcelona&destination=Madrid: Nos muestra los vuelos disponibles
-           que se encuentran en un determinado rango de fechas y lugares de origen y destino específicos. Si no lo encuentra manda el mensaje de que no hay.
+           que se encuentran en un determinado rango de fechaxs y lugares de origen y destino específicos. Si no lo encuentra manda el mensaje de que no hay.
            Puede eliminar cualquier parámetro si ese parámetro no existe filtra a las siguientes. Si quitas toda la query manda el listado de todos los vuelos.
             *dateFrom* es fecha desde, *dateTo* fecha hasta, *origin* lugar de partida y *destination* sitio de llegada.
            
         * **POST**
 
-          * localhost:8080/agency/flights/new: Crea el vuelo. Los parámetros debe ser iguales a los nombres de '@JSONProperty' y si no el atributo.
+          * localhost:8080/agency/flights/new: Crea el vuelo. Como en el caso de hotel sobre los parámetros.
             Verifica que si ese vuelo ya existe con ese número de vuelo envía un constructor vacío e impide la inserción a la DB.
             Puedes verlo comprobar si consultas en la lista o DB.
 
         * **PUT**:
 
-          * localhost:8080/agency/flights/edit/ID: Actualiza el vuelo determinado. Le pasamos el ID Y JSON, si ese vuelo existe y se modifica y recibe JSON.
-            Y si no existe envía un vacío.
+          * localhost:8080/agency/flights/edit/ID: Actualiza el vuelo determinado, lo encuentra por ID si existe actualiza y si no envía un constructor 
+           vacío evitando la operación.
 
         * **DELETE**:
 
           * localhost:8080/agency/flights/delete/ID: Eliminamos un vuelo por el ID de la DB.
              * Para la baja del vuelo debemos ver una condiciones:
                 * a) El vuelo debe existir
-                * b) Ese vuelo no presenta reservas
+                * b) Ese vuelo no presente las reservas
              Sí las cumple, envía una lista con el hotel ya eliminado. De lo contrario manda todo el listado.
              
   4. Gestión de Reservas de vuelo 

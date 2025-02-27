@@ -28,15 +28,12 @@ public class VueloController {
                                                     @RequestParam(required = false, name = "origin") String origen,
                                                     @RequestParam(required = false, name = "destination") String destino){
 
-        //Si quitamos la query se mostrará todos los vuelos.
-        if(destino == null && origen == null  && fechaInicio == null  && fechaFin == null) return service.mostrarListaRE(service.mostrarVuelos());
-        //Le mostramos los vuelos que se encuentran en ese rango de fechas, determinado el origen y destino
-        else return service.mostrarListaRE(service.verVuelosDisponibles(fechaInicio, fechaFin, origen, destino));
+        return service.mostrarListaRE(service.verVuelosDisponibles(fechaInicio, fechaFin, origen, destino));
     }
 
     //localhost:8080/agency/flights/new
     @PostMapping("/new")
-    public ResponseEntity<VueloDTO> agregarVuelo(@RequestBody VueloDTO vueloDTO){
+    public ResponseEntity<VueloDTO> altaVuelo(@RequestBody VueloDTO vueloDTO){
         return ResponseEntity.status(201).body(service.crearVuelo(vueloDTO));
     }
 
@@ -54,7 +51,7 @@ public class VueloController {
 
     //localhost:8080/agency/flights/delete/{id}
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<List<VueloDTO>> eliminarVuelos(@PathVariable Long id){
+    public ResponseEntity<List<VueloDTO>> bajaVuelo(@PathVariable Long id){
         return service.mostrarListaRE(service.eliminarVuelo(id));
     }
 }
