@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f56f2a12-4e28-4410-8231-0c4b11358f6e",
+		"_postman_id": "df427aac-760b-4766-93b2-5559098ee8be",
 		"name": "Gestion Habitacion Hotel",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "41654976"
@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"hotelId\":{\r\n        \"codHotel\": 7\r\n    },\r\n    \"empleadoId\": {\r\n       \"codEmpleado\": 3\r\n    },\r\n    \"Fecha Quedada\": \"14/08/2025\",\r\n    \"Fecha Salida\": \"28/08/2025\",\r\n    \"Tipo Habitacion\": \"MULTIPLE\",\r\n    \"Precio Habit. €\": 7833\r\n}",
+					"raw": "{\r\n    \"hotelId\":{\r\n        \"codHotel\": 1\r\n    },\r\n    \"empleadoId\": {\r\n       \"codEmpleado\": 1\r\n    },\r\n    \"Fecha Quedada\": \"14/08/2025\",\r\n    \"Fecha Salida\": \"28/08/2025\",\r\n    \"Tipo Habitacion\": \"MULTIPLE\",\r\n    \"Precio Habit. €\": 7833\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
