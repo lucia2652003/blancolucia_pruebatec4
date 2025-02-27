@@ -16,6 +16,8 @@ public class ReservaDTO {
     @JsonProperty("idReserva")
     private Long identReserva;
 
+    //Al emplear relaciones 1:N, debemos especificar a que DTO padre va dirigido @JsonManaged
+
     //Una reserva está en un único vuelo
     @JsonBackReference("vuelo-reserva")
     @JsonProperty("vueloId")

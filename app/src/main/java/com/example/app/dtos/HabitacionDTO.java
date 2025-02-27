@@ -22,6 +22,8 @@ public class HabitacionDTO {
     @JsonProperty("idHabitacion")
     private Long id;
 
+    //Al emplear relaciones 1:N, debemos especificar a que DTO padre va dirigido @JsonManaged
+
     @JsonBackReference("hotel-habitacion")
     @JsonProperty("hotelId")
     private HotelDTO hotel;

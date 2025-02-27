@@ -18,7 +18,7 @@ public class HotelController {
     IHotelService service;
 
     //localhost:8080/agency/hotels
-    //Le establecemos a que metodo HTTP y creamos un sufijo al endpoint para hacer
+    //Le establecemos a que metodo HTTP y creamos un sufijo al endpoint
     //Obtener info
     @GetMapping("")
     public ResponseEntity<List<HotelDTO>> sacarInfoHoteles(){

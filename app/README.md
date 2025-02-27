@@ -139,7 +139,7 @@ conexión BD donde se realizarán las operaciones CRUD, el mapeo(JPA + Hibernate
 El proyecto se dividió en unos directorios que se encuentra en 
 **/src/main/java/com.example.app**, para organizar mejorar el código y una mejor limpieza, no elimines las anotaciones:
 
- * config: Esta capa donde le damos autenticación para los usuarios en unos determinados endpoint o rutas (enlaces). 
+ * config: Esta capa le damos autenticación para los usuarios en unos determinados endpoint o rutas (enlaces). 
   Asi podemos para acceder la página web más segura. En este caso no le damos autenticación a los endpoints de listar.
   Ni en la URL de documentación.
   
@@ -155,32 +155,32 @@ El proyecto se dividió en unos directorios que se encuentra en
    * Un hotel presenta varias habitaciones. La habitación es asignada en un único hotel y empleado.  
    * Vuelo tiene varias reservas. La reserva de vuelo es asignada en un único vuelo y empleado.
    * El empleado tiene varias reservas de vuelo y asignar varias habitaciones.
-   Son relaciones 1:N.
    
  * repositories *@Repository*: Interfaces que nos permiten acceder las operaciones CRUD de la DB.
 
  * servicies *@Service*: Se aplican las operaciones donde se realizaran las operaciones complejas, 
   validaciones y las operaciones de repositorio.
 
- * Luego esta AppApplication donde empieza a ejecutar toda la API REST vemos que presenta un método para la presentación cuando ponemos la URL 
+ * Luego en la AppApplication, es donde se empieza a ejecutar toda la API REST vemos que presenta un método para la presentación cuando ponemos la URL 
   **localhost:8080/doc** nos mostrará una página con los endpoints de cada controlador
    con sus métodos correspondientes.
    
  Después hay un fichero en el directorio **src/test/java/com.example.app/servicies**, 
- donde se realizarán las pruebas unitarias, hacemos la simulación y verificamos si validan correctamente dan positivo y 
- si falla hace esto.
+ donde se realizarán las pruebas unitarias, hacen una la simulación y verifican si muestran los resultados correctos.
 
 ## ¿Cómo ejecutar?
 
 Una vez hecha las conexiones, importaciones de las colecciones y comprobación de datos vamos a encender la API REST pulsando
-yendo al fichero AppApplication y una vez dentro de ese pinchar en la flecha que se encuentra al lado 'Current File' y ejecuta
-puede que al principio nos mande un avise de Lombok 'Enable annotation processing' que se encuentra
-abajo a la derecha, hay que aceptarlo y una vez hecha la configuración podemos interactuar.
+yendo al fichero AppApplication y una vez dentro de ese pinchar en la flecha que se encuentra al lado 'Current File' y ejecutar,
+al principio nos mande un avise del Lombok 'Enable annotation processing' que se encuentra
+abajo a la derecha, hay que aceptarlo y una vez hecha la configuración podemos interactuar. Para detenerlo pulsa el recuadro rojo derecho.
 
 Una vez hecho vamos al Postman y os explico lo que se hará en cada endpoint, para enviar la petición le damos *SEND*: 
 
     ¡¡¡Aviso!!! En los métodos POST, PUT y DELETE debéis autenticaros para eso vamos al Postman
-    bajo al método correspondiente 'Authorization > Auth Type: Basic Auth: Username:nnnn Password:nnnn'.
+    bajo al método correspondiente 'Authorization > Auth Type: Basic Auth: Username:nnnn Password:nnnn
+    (buscar los parámetros de autenticación application.properties)'.
+    
     Si no lo hacemos nos manda el estado *401 Unauthorized*.
 
   1. Gestión de Hoteles
@@ -194,9 +194,9 @@ Una vez hecho vamos al Postman y os explico lo que se hará en cada endpoint, pa
      
         * **POST**
           
-          * localhost:8080/agency/hotels/new: Crea el hotel en el Postman > Body > raw como un JSON. Los parámetros debe ser iguales a los nombres de 
+          * localhost:8080/agency/hotels/new: Crea el hotel ve al Postman > Body > raw como un JSON. Los parámetros debe ser iguales a los nombres de 
             '@JSONProperty' y si no el atributo.
-            Verifica que si ese hotel ya existe con ese código hotel envía un constructor vacío e impide la inserción a la DB.
+            Verifica que si ese hotel ya existe con ese código evita la inserción a la DB.
            
         * **PUT**:
           
@@ -218,12 +218,13 @@ Una vez hecho vamos al Postman y os explico lo que se hará en cada endpoint, pa
            * localhost:8080/agency/rooms?dateFrom=01/01/2025&dateTo=20/12/2025&destination=Miami: Nos muestran las habitaciones que 
             están disponibles en ese rango de fechas y en el lugar correspondiente. Si no encuentra la lista manda un mensaje que no presenta habitaciones. 
             No quites los parámetros porque son unos parámetros obligatorios
-            y no cambies el formato de las fechas porque impedimos. *dateFrom* es fecha desde y *dateTo* hasta. 
+            y no cambies el formato de las fechas porque nos manda un error. *dateFrom* es fecha desde y *dateTo* hasta. 
 
         * **POST**:
             
            * localhost:8080/agency/room-booking/new: Crea la habitación con un JSON. En este le metemos dos entidades Empleado y Hotel, 
-            además de otros atributos, tienes que fijarte que son los mismos nombre que DTO que corresponde.
+            además de otros atributos, tienes que fijarte que son los mismos nombres que el DTO correspondiente. 
+            No se inserta la habitación si tiene el mismo ID el hotel y empleado.
           
   3. Gestión de Vuelos
         * **GET**
@@ -234,20 +235,20 @@ Una vez hecho vamos al Postman y os explico lo que se hará en cada endpoint, pa
           * localhost:8080/agency/flights/ID: Buscar un vuelo por ID de la DB, si existe muestra JSON. De lo contrario envía un vacío.
             
           * localhost:8080/agency/flights?dateFrom=01/01/2025&dateTo=20/05/2025&origin=Barcelona&destination=Madrid: Nos muestra los vuelos disponibles
-           que se encuentran en un determinado rango de fechaxs y lugares de origen y destino específicos. Si no lo encuentra manda el mensaje de que no hay.
-           Puede eliminar cualquier parámetro si ese parámetro no existe filtra a las siguientes. Si quitas toda la query manda el listado de todos los vuelos.
+           que se encuentran en un determinado rango de fechas y lugares de origen y destino específicos. Si no lo encuentra manda el mensaje de que no hay.
+           Puedes eliminar cualquier parámetro, al hacerlo realizamos una filtración con los parámetros que están presentes. Si quitas todos manda todos los vuelos.
             *dateFrom* es fecha desde, *dateTo* fecha hasta, *origin* lugar de partida y *destination* sitio de llegada.
            
         * **POST**
 
           * localhost:8080/agency/flights/new: Crea el vuelo. Como en el caso de hotel sobre los parámetros.
-            Verifica que si ese vuelo ya existe con ese número de vuelo envía un constructor vacío e impide la inserción a la DB.
+            Verifica que si ese vuelo ya existe con ese número impide la inserción a la DB.
             Puedes verlo comprobar si consultas en la lista o DB.
 
         * **PUT**:
 
-          * localhost:8080/agency/flights/edit/ID: Actualiza el vuelo determinado, lo encuentra por ID si existe actualiza y si no envía un constructor 
-           vacío evitando la operación.
+          * localhost:8080/agency/flights/edit/ID: Actualiza el vuelo determinado, lo encuentra por ID si existe actualiza y muestra datos vacíos 
+            y evitando modificación DB.
 
         * **DELETE**:
 
@@ -255,12 +256,11 @@ Una vez hecho vamos al Postman y os explico lo que se hará en cada endpoint, pa
              * Para la baja del vuelo debemos ver una condiciones:
                 * a) El vuelo debe existir
                 * b) Ese vuelo no presente las reservas
-             Sí las cumple, envía una lista con el hotel ya eliminado. De lo contrario manda todo el listado.
+             Sí las cumple, envía una lista con el hotel ya eliminado. De lo contrario manda todo el listado y sin cambios.
              
   4. Gestión de Reservas de vuelo 
         * **POST**
 
-          * localhost:8080/agency/flight-booking/new: Crea la reserva del vuelo en el Postman > Body como un JSON. Los parámetros debe ser iguales a los nombres de
-            '@JSONProperty' y si no lo tiene el nombre de atributo. En este le metemos dos entidades.
-            Verifica que si esa reserva está asignada en dicho vuelo y empleado envía un constructor vacío. De lo contrario, lo inserta y se actualiza tanto DTO como DB.
+          * localhost:8080/agency/flight-booking/new: Crea la reserva del vuelo. 
+            Si existe la reserva evitamos la inserción a la DB.
             Podemos ver en la lista de vuelos.
